@@ -2,3 +2,4 @@ bin/
 build/
 lib/
 third_party/google/
+third_party/poco/
