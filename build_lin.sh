@@ -17,7 +17,7 @@ rm -rf "$path_project_build"
 mkdir -p "$path_project_build"
 cd "$path_project_build"
 
-cmake -G "Unix Makefiles" -DEXECUTABLE_OUTPUT_PATH="$path_project_bin" -DLIBRARY_OUTPUT_PATH="$path_project_lib" -DCMAKE_BUILD_TYPE="$config" "$path_posix"
+cmake -G "Unix Makefiles" -DEXECUTABLE_OUTPUT_PATH="$path_project_bin" -DLIBRARY_OUTPUT_PATH="$path_project_lib" -DCMAKE_BUILD_TYPE="$config" -DBITNESS="$bitness" "$path_posix"
 if [[ $? -ne 0 ]]; then
   exit 1
 fi
