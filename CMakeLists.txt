@@ -19,6 +19,8 @@ endif()
 
 ## set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
+message("CMAKE_C_COMPILER = ${CMAKE_C_COMPILER}")
+message("CMAKE_CXX_COMPILER = ${CMAKE_CXX_COMPILER}")
 message("CMAKE_C_FLAGS = ${CMAKE_C_FLAGS}")
 message("CMAKE_CXX_FLAGS = ${CMAKE_CXX_FLAGS}")
 
