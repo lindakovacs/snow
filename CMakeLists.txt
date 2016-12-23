@@ -17,6 +17,6 @@ endif()
 
 ## set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
-add_subdirectory(research/core)
+add_subdirectory(core)
 ## add_subdirectory(third_party/google/gtest)
-## add_subdirectory(third_party/poco)
+add_subdirectory(third_party/poco)
