@@ -2,8 +2,16 @@ cmake_minimum_required(VERSION 2.8)
 
 project(snow)
 
-include_directories(.)
+include_directories(.
+  ./research
+  ./third_party/google/gtest/googlemock/include
+  ./third_party/google/gtest/googletest/include
+)
+
 include("script/ensure_output_path.cmake")
+include("script/ensure_staic_linkage.cmake")
+include("script/generate_version_file.cmake")
+generate_version_file("${CMAKE_SOURCE_DIR}/build/version.h" "1" "1" "4" "$ENV{BUILD_NUMBER}")
 
 link_directories(${LIBRARY_OUTPUT_PATH})
 
@@ -34,5 +42,6 @@ message("CMAKE_C_FLAGS_${FLAG_SUFF} = ${CMAKE_C_FLAGS_${FLAG_SUFF}}")
 message("CMAKE_CXX_FLAGS_${FLAG_SUFF} = ${CMAKE_CXX_FLAGS_${FLAG_SUFF}}")
 
 add_subdirectory(core)
-## add_subdirectory(third_party/google/gtest)
+add_subdirectory(research/gtest)
+add_subdirectory(third_party/google/gtest)
 ## add_subdirectory(third_party/poco)

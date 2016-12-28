@@ -1,0 +1,27 @@
+﻿------------------------------------------------------------------------------------------------
+1. How do you get the initialized value of a global variable in that object file's data segment (for example, version)?
+
+#include <gtest/gtest.h>
+#include <build/version.h>
+
+static const volatile char* BuildVersion = BUILD_VERSION_STR;
+
+int main(int argc, char** argv)
+{
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+}
+
+---
+
+$ objdump -s ./fsip_gtest | grep version
+47b110 00000062 75696c64 5f766572 73696f6e  ...build_version
+
+$ objdump -s --start-address=0x47b110 --stop-address=0x47b130 ./fsip_gtest
+./fsip_gtest:     file format elf64-x86-64
+Contents of section .rodata:
+ 47b110 00000062 75696c64 5f766572 73696f6e  ...build_version
+ 47b120 3d312e34 2e31322e 31313430 00000000  =1.4.12.1140....
+
+------------------------------------------------------------------------------------------------
+

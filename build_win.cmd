@@ -26,9 +26,9 @@ echo project bin: %path_project_bin%
 echo project lib: %path_project_lib%
 
 :: NOTE: use vs-generator for local builds
-if %bitness%==x64 set generator="Visual Studio 14 2015 Win64"
-if %bitness%==x86 set generator="Visual Studio 14 2015"
-:: set generator="NMake Makefiles"
+:: if %bitness%==x64 set generator="Visual Studio 14 2015 Win64"
+:: if %bitness%==x86 set generator="Visual Studio 14 2015"
+set generator="NMake Makefiles"
 
 pushd %path_project%
 call cmake -G %generator% -DEXECUTABLE_OUTPUT_PATH=%path_project_bin% -DLIBRARY_OUTPUT_PATH=%path_project_lib% -DCMAKE_BUILD_TYPE=%config% %path_posix%

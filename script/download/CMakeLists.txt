@@ -9,5 +9,5 @@ set(LIBRARY_OUTPUT_PATH "${TEMP_DIRECTORY}")
 include("${CMAKE_SOURCE_DIR}/../ensure_output_path.cmake")
 
 include("${CMAKE_SOURCE_DIR}/../download_external_project.cmake")
-## download_external_project("gtest" "https://github.com/google/googletest.git" "${CMAKE_SOURCE_DIR}/../../third_party/google/gtest")
+download_external_project("gtest" "https://github.com/google/googletest.git" "${CMAKE_SOURCE_DIR}/../../third_party/google/gtest")
 download_external_project("poco" "https://github.com/pocoproject/poco.git" "${CMAKE_SOURCE_DIR}/../../third_party/poco")

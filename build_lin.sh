@@ -17,13 +17,22 @@ rm -rf "$path_project_build"
 mkdir -p "$path_project_build"
 cd "$path_project_build"
 
+function show_build_failed
+{
+  echo "*********************************************"
+  echo "BUILD FAILED ("$config $bitness")"
+  echo "*********************************************"
+}
+
 cmake -G "Unix Makefiles" -DEXECUTABLE_OUTPUT_PATH="$path_project_bin" -DLIBRARY_OUTPUT_PATH="$path_project_lib" -DCMAKE_BUILD_TYPE="$config" -DBITNESS="$bitness" "$path_posix"
 if [[ $? -ne 0 ]]; then
+  show_build_failed
   exit 1
 fi
 
 cmake --build . --config $config
 if [[ $? -ne 0 ]]; then
+  show_build_failed
   exit 1
 fi
 
