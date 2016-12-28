@@ -10,7 +10,7 @@ mkdir %path_project%
 echo project root: %path_posix%
 echo project path: %path_project%
 
-set PATH=%PATH%;C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin
+set PATH=%PATH%;C:\Program Files (x86)\Microsoft Visual Studio %vc_number%.0\VC\bin
 call vcvars32.bat
 
 set path_project_bin=%path_posix%/temp
