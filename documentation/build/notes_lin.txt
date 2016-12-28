@@ -14,14 +14,14 @@ int main(int argc, char** argv)
 
 ---
 
-$ objdump -s ./fsip_gtest | grep version
+$ objdump -s ./my_prog | grep version
 47b110 00000062 75696c64 5f766572 73696f6e  ...build_version
 
-$ objdump -s --start-address=0x47b110 --stop-address=0x47b130 ./fsip_gtest
-./fsip_gtest:     file format elf64-x86-64
+$ objdump -s --start-address=0x47b110 --stop-address=0x47b130 ./my_prog
+./my_prog:     file format elf64-x86-64
 Contents of section .rodata:
  47b110 00000062 75696c64 5f766572 73696f6e  ...build_version
- 47b120 3d312e34 2e31322e 31313430 00000000  =1.4.12.1140....
+ 47b120 3d312e34 2e31322e 31313430 00000000  =1.2.1.40....
 
 ------------------------------------------------------------------------------------------------
 
