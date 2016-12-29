@@ -1,6 +1,6 @@
 echo off
 
-:: set vs generator
+:: set vs generator (sure that VS installed on C:)
 :: Visual Studio 14 2015 [arch]
 :: Visual Studio 12 2013 [arch]
 :: Visual Studio 11 2012 [arch]
