@@ -1,0 +1,73 @@
+﻿------------------------------------------------------------------------------------------------
+1. set on for Poco library in Poco/CMakeLists.txt
+
+option(POCO_STATIC
+  "Set to OFF|ON (default is OFF) to control build of POCO as STATIC library" ON)
+
+option(POCO_MT
+  "Set to OFF|ON (default is OFF) to control build of POCO as /MT instead of /MD" ON)
+
+------------------------------------------------------------------------------------------------
+2. delete from Poco/CMakeLists.txt (it will configured by ensure_output_path.cmake script)
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+------------------------------------------------------------------------------------------------
+3. poco/cmake/DefinePlatformSpecifc.cmake
+
+ORIGINAL:
+
+# Add a d postfix to the debug libraries
+if(POCO_STATIC)
+        set(CMAKE_DEBUG_POSTFIX "${STATIC_POSTFIX}d" CACHE STRING "Set Debug library postfix" FORCE)
+        set(CMAKE_RELEASE_POSTFIX "${STATIC_POSTFIX}" CACHE STRING "Set Release library postfix" FORCE)
+        set(CMAKE_MINSIZEREL_POSTFIX "${STATIC_POSTFIX}" CACHE STRING "Set MinSizeRel library postfix" FORCE)
+        set(CMAKE_RELWITHDEBINFO_POSTFIX "${STATIC_POSTFIX}" CACHE STRING "Set RelWithDebInfo library postfix" FORCE)
+else(POCO_STATIC)
+        set(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "Set Debug library postfix" FORCE)
+        set(CMAKE_RELEASE_POSTFIX "" CACHE STRING "Set Release library postfix" FORCE)
+        set(CMAKE_MINSIZEREL_POSTFIX "" CACHE STRING "Set MinSizeRel library postfix" FORCE)
+        set(CMAKE_RELWITHDEBINFO_POSTFIX "" CACHE STRING "Set RelWithDebInfo library postfix" FORCE)
+endif()
+
+REPLACED:
+
+# Add a d postfix to the debug libraries
+if(POCO_STATIC)
+        set(CMAKE_DEBUG_POSTFIX "${STATIC_POSTFIX}" CACHE STRING "Set Debug library postfix" FORCE)
+        set(CMAKE_RELEASE_POSTFIX "${STATIC_POSTFIX}" CACHE STRING "Set Release library postfix" FORCE)
+        set(CMAKE_MINSIZEREL_POSTFIX "${STATIC_POSTFIX}" CACHE STRING "Set MinSizeRel library postfix" FORCE)
+        set(CMAKE_RELWITHDEBINFO_POSTFIX "${STATIC_POSTFIX}" CACHE STRING "Set RelWithDebInfo library postfix" FORCE)
+else(POCO_STATIC)
+        set(CMAKE_DEBUG_POSTFIX "" CACHE STRING "Set Debug library postfix" FORCE)
+        set(CMAKE_RELEASE_POSTFIX "" CACHE STRING "Set Release library postfix" FORCE)
+        set(CMAKE_MINSIZEREL_POSTFIX "" CACHE STRING "Set MinSizeRel library postfix" FORCE)
+        set(CMAKE_RELWITHDEBINFO_POSTFIX "" CACHE STRING "Set RelWithDebInfo library postfix" FORCE)
+endif()
+
+------------------------------------------------------------------------------------------------
+4. poco/cmake/DefinePlatformSpecifc.cmake
+
+ORIGINAL:
+
+        set(STATIC_POSTFIX "mt" CACHE STRING "Set static library postfix" FORCE)
+    else(POCO_MT)
+        set(STATIC_POSTFIX "md" CACHE STRING "Set static library postfix" FORCE)
+
+REPLACED:
+
+
+        set(STATIC_POSTFIX "" CACHE STRING "Set static library postfix" FORCE)
+    else(POCO_MT)
+        set(STATIC_POSTFIX "" CACHE STRING "Set static library postfix" FORCE)
+
+------------------------------------------------------------------------------------------------
+5.
+		
+------------------------------------------------------------------------------------------------
+6.
+		
+		
+		
