@@ -40,6 +40,6 @@ namespace Core
 
   void FileWriter::Write(const std::string& buffer)
   {
-    Stream.write(buffer.c_str(), buffer.size());
+    Stream.write(buffer.c_str(), static_cast<std::streamsize>(buffer.size()));
   }
 }

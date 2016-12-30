@@ -7,6 +7,10 @@ namespace Core
   {
   }
 
+  Error::~Error()
+  {
+  }
+
   std::wstring Error::GetMessage() const
   {
     return Message;
