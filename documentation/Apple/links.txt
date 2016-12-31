@@ -1,0 +1,58 @@
+!!! https://developer.apple.com/library/mac/navigation/   Samples !!!
+
+!!! https://www.youtube.com/watch?v=xrb52CeGXj0   11 базовых вещей, которые должен знать и помнить каждый iOS-разработчик
+!!! https://www.youtube.com/watch?v=dGrR8bil1zc   XCode fast navigating
+
+!!! https://habrahabr.ru/post/158727/             Работа с файлами .plist в Cocoa/CocoaTouch
+!!! https://ste.vn/2015/06/10/configuring-app-transport-security-ios-9-osx-10-11/   Описание Configuring App Transport Security (без этого не будет работать HTTP)
+
+!!! https://adoptioncurve.net/archives/2012/09/a-simple-uicollectionview-tutorial/  Отличный сайт с примерами UICollectionView  и др. EN
+
+!!! http://www.paintcodeapp.com/news/ultimate-guide-to-iphone-resolutions  The Ultimate Guide To iPhone Resolutions
+http://iosres.com/  
+
+!!! https://developer.apple.com/library/mac/documentation/General/Conceptual/DevPedia-CocoaCore/AppID.html     APPID - The string consists of a Team ID and a bundle ID search string, with a period (.) separating the two parts.
+
+http://habrahabr.ru/post/198612/  Вопросы по iOS программированию
+
+https://habrahabr.ru/post/191334/ Core Data для iOS. Теоретическая часть
+https://habrahabr.ru/post/192090/ Core Data для iOS. Практическая часть
+
+http://www.cocoawithlove.com/2009/05/invoking-other-processes-in-cocoa.html     Invoking other processes in Cocoa
+
+http://www.3dgep.com/texturing-and-lighting-with-opengl-and-glsl/#Creating_a_Sphere   создание сферы на OpenGL
+http://nehe.gamedev.net/tutorial/ios_lesson_01__setting_up_gl_es/44001/  - iOS Lesson 01 - Setting up GL ES
+http://www.raywenderlich.com/22167/beginning-core-image-in-ios-6    Beginning Core Image in iOS 6
+http://www.uraldev.ru/articles/39/page/1   Стекло на опен-гл RU   !!!
+http://prideout.net/blog/?tag=opengl-glass   тоже стекло
+
+http://nehe.gamedev.net/   Некоторые уроки по ОпенГЛ
+http://www.raywenderlich.com/10862/how-to-create-cool-effects-with-custom-shaders-in-opengl-es-2-0-and-cocos2d-2-x   пример Hello World  2D
+
+
+Металл
+http://blog.kaflesushant.com.np/2013/11/metal-effect-using-glsl-in-opengl.html
+http://devernay.free.fr/cours/opengl/materials.html
+http://www.glprogramming.com/red/chapter05.html
+http://math.hws.edu/bridgeman/courses/324/s06/doc/opengl.html   Hello, Teapot!
+http://www.ozone3d.net/tutorials/glsl_texturing_p04.php#part_43
+
+http://macbug.ru/cocoa/objc
+http://habrahabr.ru/post/143341/
+
+https://developer.apple.com/library/mac/navigation/index.html
+
+
+
+CoreMotion
+http://blog.denivip.ru/index.php/2013/07/%D0%BE%D1%81%D0%B2%D0%B0%D0%B8%D0%B2%D0%B0%D0%B5%D0%BC-core-motion-%D0%B2-ios/   !!!!
+http://flapps.ru/forum/topic4702.html   !!! Пример с мячом
+
+
+http://heximal.ru/blog/apple/publikuem-prilozhenie-v-appstore/  Публикуем приложение в AppStore
+http://www.gamedev.ru/mobile/forum/?id=202500  Кое что про ключи и бэкап
+
+http://www.imaladec.com/story/content-lessons   Лекции по некоторым библиотекам на русском
+
+!!! https://habrahabr.ru/post/144136/   полезные библиотеки для iOS (хелперы, UI-компоненты и фреймворки)
+

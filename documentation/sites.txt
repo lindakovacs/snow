@@ -1,0 +1,5 @@
+﻿http://www.flaticon.com/  Иконки
+
+http://caniuse.com/  Справочник по использованию HTML, CSS и т.п.
+
+https://msdn.microsoft.com/en-us/library/aa366504(v=vs.85).aspx  Using Windows Filtering Platform (возможно использовать для блокировки интернета)

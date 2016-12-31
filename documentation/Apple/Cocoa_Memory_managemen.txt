@@ -1,0 +1,11 @@
+﻿https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html#//apple_ref/doc/uid/10000011i
+
+Objective-C provides two methods of application memory management.
+1
+In the method described in this guide, referred to as “manual retain-release” or MRR, you explicitly manage memory by keeping track of objects you own.
+This is implemented using a model, known as reference counting, that the Foundation class NSObject provides in conjunction with the runtime environment.
+2
+In Automatic Reference Counting, or ARC, the system uses the same reference counting system as MRR, but it inserts the appropriate memory management method calls for you at compile-time.
+You are strongly encouraged to use ARC for new projects
+
+Для отладки и поиска проблем с памятью можно использовать Clang Static Analyzer, встроенный в Xcode, или объект NSZombie.

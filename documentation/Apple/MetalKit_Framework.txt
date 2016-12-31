@@ -1,0 +1,55 @@
+﻿https://developer.apple.com/library/ios/documentation/Miscellaneous/Conceptual/MetalProgrammingGuide/Introduction/Introduction.html
+https://developer.apple.com/library/ios/documentation/Miscellaneous/Conceptual/MetalProgrammingGuide/Render-Ctx/Render-Ctx.html   Metal Programming Guide (This chapter describes how to create and work with MTLRenderCommandEncoder and MTLParallelRenderCommandEncoder objects)
+
+https://developer.apple.com/metal/  ОСНОВЫ
+http://metalbyexample.com/up-and-running-2/ Простецкий пример (добавление шейдера)
+
+http://code.tutsplus.com/tutorials/ios-8-getting-started-with-metal--cms-21987   Пошагово
+http://metalbyexample.com/reflection-and-refraction/  отличный пример
+https://www.objc.io/issues/18-games/metal/#a-basic-metal-program
+
+https://developer.apple.com/library/ios/documentation/Miscellaneous/Conceptual/MetalProgrammingGuide/Introduction/Introduction.html
+https://developer.apple.com/library/ios/documentation/Metal/Reference/MetalShadingLanguageGuide/std-lib/std-lib.html#//apple_ref/doc/uid/TP40014364-CH5-SW1
+https://developer.apple.com/metal/
+https://habrahabr.ru/post/248785/
+
+http://metalbyexample.com/
+
+-----------------------------------------------------------------------------------------
+Ше́йдер (англ. shader — программа построения теней)
+Программы, предназначенные для выполнения на процессорах видеокарты, получили название «шейдеры»
+
+вершинные (англ. vertex shader),
+вершинный шейдер оперирует данными, связанными с вершинами многогранников;
+вершинный шейдер может использоваться для видового и перспективного преобразования вершин, для генерации текстурных координат, для расчёта освещения и т. д.
+
+геометрические (англ. geometry shader),
+геометрический шейдер, в отличие от вершинного, способен обработать не только одну вершину, но и целый примитив;
+геометрический шейдер способен генерировать примитивы «на лету» (не задействуя при этом центральный процессор).
+
+пиксельные или фрагментные (англ. pixel shader),
+обрабатывает данные, связанные с пикселями (например, цвет, глубина, текстурные координаты),
+пиксельный шейдер используется на последней стадии графического конвейера для формирования фрагмента изображения.
+
+-----------------------------------------------------------------------------------------
+
+MetalKit provides functionality in three key areas:
+(MetalKit обеспечивает функциональность в трех ключевых областях)
+
+Texture loading
+Загрузка текстур позволяет приложению легко загружать текстуры из различных источников. Текстуры даже можгут быть загружены асинхронно с помощью всего нескольких строк кода.
+Для получения дополнительной информации см MTKTextureLoader.
+
+Model handling
+Обработка моделей обеспечивает Металл-конкретную функциональность легко взаимодействующую с моделью ввода/вывода.
+Эта коллекция оптимизированных функций и объектов позволяет эффективно передавать данные между моделью I/O сети и Metal buffers.
+
+View management
+Обеспечивает стандартную реализацию Metal view, с опциональным делегатом рисования, что резко снижает количество кода, необходимого для создания графических рендеринга приложение.
+Для получения дополнительной информации см MTKView по классам и MTKViewDelegate Код протокола.
+
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------

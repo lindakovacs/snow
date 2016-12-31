@@ -1,0 +1,8 @@
+﻿Если Вы — разработчик программ для макоси, то наверняка знаете о такой замечательной вещи, как Info.plist, да и вообще о plist'ах. Так вот, есть очень удобная утилита,
+позволяющая конвертировать .plist в .bplist, то есть, в более быстрый и лёгкий бинарный формат плиста.
+
+# в бинарный
+plutil -convert -format bin1 -o Info.bplist Info.plist
+
+# в XML
+plutil -convert -format xml1 -o Info.plist Info.bplist

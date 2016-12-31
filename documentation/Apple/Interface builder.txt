@@ -1,0 +1,25 @@
+﻿https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/WorkingwithConstraintsinInterfaceBuidler.html
+https://developer.apple.com/library/ios/recipes/xcode_help-IB_auto_layout/chapters/pin-constraints.html#//apple_ref/doc/uid/TP40014226-CH28
+
+Есть 3 варианта создания авто ограничений размещения Auto Layout constraints in Interface Builder:
+1) control-drag between views
+2) Pin and Align tools
+3) позволить Interface Builder настроить ограничения, а затем отредактировать или изменить результаты
+
+После создания View IB автоматически добавляет prototyping constraints (они определяют положение View по отношению к левому верхнему углу).
+Обычно prototyping constraints используются для быстрой визуализации интерфейса и тестирования.
+Затем необходимо заменить эти ограничения своими явными.
+Never ship an app with prototyping constraints (никогда не публикуйте приложение с prototyping constraints).
+
+Как только добавляется первое ограничение для View, система удаляет все prototyping constraints (макетные ограничения) из представлений (Views), на которые ссылается ограничение.
+Вполне вероятно, что после добавления первого ограничения XCode покажет предупреждения о противоречиях (это нормально), для решения необходимо
+добавить constraints для всех View.
+
+Control-Dragging Constraints
+Перетащите одно View на другое.
+Перетаскивать можно как на полотно сцены (canvas), так и на иконки (icons in the scene’s document outline).
+Ctrl+тащим
+
+Stack, Align, Pin and Resolve Tools
+
+

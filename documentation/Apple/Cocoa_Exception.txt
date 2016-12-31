@@ -1,0 +1,8 @@
+﻿https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Exceptions/Exceptions.html#//apple_ref/doc/uid/10000012i
+
+The Cocoa frameworks require that all exceptions be instances of NSException or its subclasses. Do not throw objects of other types.
+The Cocoa frameworks are generally not exception-safe. The general pattern is that exceptions are reserved for programmer error only, and the program catching such an exception should quit soon afterwards.
+
+Instead of exceptions, error objects (NSError) and the Cocoa error-delivery mechanism are the recommended way to communicate expected errors in Cocoa applications.
+
+

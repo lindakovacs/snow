@@ -1,0 +1,21 @@
+﻿https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Multithreading/CreatingThreads/CreatingThreads.html
+
+---------------------------------------------------
+To prevent these locks from degrading performance in the single-threaded case, however, Cocoa does not create them until the application spawns its first new thread using the NSThread class.
+Чтобы предотвратить при блокировках снижение производительности в однопоточном случае, какао не создаёт их, пока приложение не порождает свой первый новый поток, используя класс NSThread.
+Т.е. при использовании другого API при создании потоков (не какао) - POSIX threads или С++ - необходимо создать фейковый поток, используя NSThread, и завершить его
+(т.е. сообщить какао фреймворку, что приложение многопоточное)
+
+Mixing POSIX and Cocoa Locks
+Объекты синхронизации какао, по существу, обертки для POSIX mutexes and conditions. Однако, вы должны всегда использовать тот же интерфейс для создания и манипулирования.
+
+Applications that link in Objective-C frameworks typically must create at least one autorelease pool in each of their threads.
+If an application uses garbage collection (?) instead of the managed memory model (?), creation of an autorelease pool is not strictly necessary.
+
+Проверка, что фреймворк находится в многопоточном режиме:
+NSThread class method isMultiThreaded
+
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------

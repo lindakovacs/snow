@@ -1,0 +1,63 @@
+﻿Apple навязывает всем HTTPS  https://ste.vn/2015/06/10/configuring-app-transport-security-ios-9-osx-10-11/  Тут описан финт ушами для включения HTTP
+
+
+https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/DisplayWebContent/DisplayWebContent.html
+
+!!! Concurrency Note: The WebKit framework is not thread safe. If you call functions or methods in this framework, you must do so exclusively on the main program thread.
+WebKit - набор базовых классов для отображения веб-контента в окне. Поддерживает MIME типы контента, фреймы и скролинг.
+
+WebKit не реализует полный набор функций веб-браузера. Однако, возможно расширить WebKit путем реализации пользовательских делегатов - view and model objects.
+
+WebKit также предлагает редактирования веб-контента. При включении редактирования в вашем WebView, пользователи могут редактировать веб-контент, который он отображает.
+Вы также можете получить доступ к JavaScript из Objective-C, и наоборот (You can also access JavaScript from Objective-C and vice versa)
+
+WebKit Objective-C API разработан специально для встраивания веб-контента в вашем Cocoa или Carbon приложения.
+Вы можете использовать Objective-C в сочетании с С. WebKit работает со всеми версиями OS X v10.2 и более новыми, которые имеют Safari 1.0 и новее.
+
+------------------------------------------------------------------------------
+
+The WebKit loosely follows a model-view-controller paradigm.
+WebKit свободно(легко) следует парадигме model-view-controller.
+
+Когда загружается содержимое для каждого объекта WebFrame, соответствующий объект WebFrameView создается для отображения этого содержимого.
+Эти объекты WebFrameView присоединены к иерархии WebView. Таким образом, существует параллельная иерархия объектов WebFrameView, используемых для визуализации всей страницы.
+В этой иерархии объект WebView является не только объектом управления, но и корневым.
+
+WebKit создает эти объекты автоматически всякий раз, когда страницы загружаются, либо программно, либо когда пользователь нажимает на ссылку.
+
+------------------------------------------------------------------------------
+
+In the WebKit, client load requests are asynchronous. To handle the state of objects during the time a request is initiated and content arrives, the WebKit creates what is called a provisional data source.
+The data source is provisional because it isn’t known yet whether the page will load successfully. Any existing data source for a page remains valid until the provisional data source is validated.
+The first time a WebFrame object is loaded there’s no existing data source and a blank page is displayed.
+
+В WebKit, запросы клиента нагрузки являются асинхронными. Для обработки состояния объектов во время запроса инициируется и содержание прибывает, то WebKit создает то, что называется временным источником данных.
+Источник данных носит предварительный характер, так как он еще будет ли страница загрузки успешно не известно. Любой существующий источник данных для страницы остается в силе до временного источника данных не подтверждено.
+Первый раз, когда объект WebFrame загружается нет существующего источника данных и отображается пустая страница.
+
+------------------------------------------------------------------------------
+
+WebView Делегаты
+
+Можно настроить поведение WebKit путем внедрения Webview делегатов, которые перехватывают сообщения запросов и ответов, а также сделать политики и пользовательского интерфейса решения.
+
+WebView использует несколько модель делегата, потому что есть очень много аспектов поведения WebKit, который можно настроить.
+WebView объекты имеют четырех делегатов:
+
+Frame load delegate—intercepts frame-level request
+Resource load delegate—intercepts resource-level request
+User interface delegate—controls the opening of new windows
+Policy delegate—modifies the policy decisions that are made when handling URLs or the data they represent
+
+Поскольку все делегаты используют неофициальные протоколы, вы можете установить делегатов и реализовать методы делегата, которые вы хотите.
+Если вы не реализуете метод делегата, то WebKit использует реализацию по умолчанию.
+Например, по умолчанию, сообщения об ошибках не сообщается, и новые окна не открываются при нажатии на ссылку, что приводит к новым запросом окна.
+Если WebKit не может достичь URL, в окне приложения отображается старый контент, который может быть пустая страница.
+
+
+
+
+
+
+
+

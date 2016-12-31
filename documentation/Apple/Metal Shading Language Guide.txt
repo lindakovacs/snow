@@ -1,0 +1,27 @@
+﻿https://developer.apple.com/library/ios/documentation/3DDrawing/Conceptual/OpenGLES_ProgrammingGuide/TechniquesforWorkingwithVertexData/TechniquesforWorkingwithVertexData.html  Кое-что
+https://developer.apple.com/library/ios/documentation/Metal/Reference/MetalShadingLanguageGuide/func-var-qual/func-var-qual.html
+https://developer.apple.com/library/ios/documentation/Metal/Reference/MetalShadingLanguageGuide/Introduction/Introduction.html
+
+MSL - используется для описания графики и вычислений, базируется на c++.
+Начало коорд системы в левом верхнем углу (texture or framebuffer).
+
+Общее описание и ссылки на типы данных, скалярные и векторные операции:
+https://developer.apple.com/library/ios/documentation/Metal/Reference/MetalShadingLanguageGuide/Introduction/Introduction.html
+
+Математические функции <metal_stdlib>:
+https://developer.apple.com/library/ios/documentation/Metal/Reference/MetalShadingLanguageGuide/std-lib/std-lib.html#//apple_ref/doc/uid/TP40014364-CH5-SW1
+
+
+
+Vertex состоит из одного или нескольких атрибутов: position(положение), color(цвет), normal coordinates (координаты), texture coordinates (координаты текстуры).
+Атрибут - вектор, состоящий из 1-го или 4-х компонентов. Все компоненты имеют общий теп данных. Не предусмотренные компоненты заполняются 0, последний - 1.
+Цвет может быть определён как компонент GLubyte components (red, green, blue, alpha).
+
+Обычно стараются уменьшить количество вершин (следовательно сложность расчётов). Обычно делают:
+несколько моделей на разных уровнях детелизации (зависит от растояния до камеры или от размера дисплея),
+использование текстур,
+
+Необходимо избегать хранения констант, специфичных для всей модели в атрибутах (не дублировать их в каждой вершине).
+Приложение должно использовать per-vertex attribute function.
+
+

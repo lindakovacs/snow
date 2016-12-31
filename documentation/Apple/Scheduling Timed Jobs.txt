@@ -1,0 +1,53 @@
+﻿-------------------------------------------------------------------------------------------
+https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/ScheduledJobs.html
+
+Есть два способа зашедулить задачу на OS X:
+- 'launchd jobs' (see the manual page for launchd.plist)
+- 'cron jobs' (Although it is still supported, cron is not a recommended solution. It has been deprecated in favor of launchd)
+
+Older approaches, such as 'at jobs' and 'periodic jobs' are deprecated and should not be used.
+
+
+Important: If your daemon shuts down too quickly after being launched, launchd may think it has crashed.
+Daemons that continue this behavior may be suspended and not launched again when future requests arrive. To avoid this behavior, do not shut down for at least 10 seconds after launch.
+
+
+http://nathangrigg.net/2012/07/schedule-jobs-using-launchd/
+launchctl load ~/Library/LaunchAgents/net.nathangrigg.archive-tweets.plist
+launchctl unload ~/Library/LaunchAgents/net.nathangrigg.archive-tweets.plist
+launchctl start net.nathangrigg.archive-tweets
+launchctl stop net.nathangrigg.archive-tweets
+launchctl list
+
+/Library/LaunchAgents
+/Library/LaunchDaemons
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.familoop.afs.diagnostics_reporter</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>$MONITOR_DIR$/diagnostics/$DIAGNOSTICS_REPORTER_BIN_NAME$</string>
+    </array>
+    <key>StartInterval</key>
+    <integer>172800</integer>
+  </dict>
+</plist>
+
+
+-------------------------------------------------------------------------------------------
+Для Windows
+https://msdn.microsoft.com/en-us/library/windows/desktop/aa383600(v=vs.85).aspx Task Scheduler 2.0 Interfaces
+https://msdn.microsoft.com/en-us/library/windows/desktop/aa383765(v=vs.85).aspx Time Trigger Example (XML)
+
+http://www.oszone.net/12468/Schtasks2  Описание командной строки на русском
+schtasks /create /?
+schtasks /create /tn FDiagnosticsReporter /sc MINUTE /mo 2 /tr "C:\Program Files (x86)\Common Files\ResourceMonitor\diagnostics\\diagnostics_reporter.exe" /ru SYSTEM /f
+schtasks /query /tn FDiagnosticsReporter
+schtasks /delete /tn FDiagnosticsReporter /f
+
+
+schtasks /create /tn FDiagnosticsReporter /sc MINUTE /mo 2 /tr "D:\1\test_core_access_token.exe" /ru SYSTEM /f

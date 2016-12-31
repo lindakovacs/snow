@@ -1,0 +1,465 @@
+﻿
+ИСХОДНИКИ
+https://developer.apple.com/library/mac/samplecode/PreLoginAgents/Introduction/Intro.html
+https://opensource.apple.com/source/notify/notify-16/notifyd.tproj/service.c?txt              !!!!!
+http://www.martinkahr.com/2006/10/15/cocoa-directory-services-wrapper/index.html
+
+
+ОПИСАНИЕ ФРЕЙМВОРКА Core Foundation Framework Reference
+https://developer.apple.com/library/mac/documentation/CoreFoundation/Reference/CoreFoundation_Collection/index.html#//apple_ref/doc/uid/TP40003849
+
+Для чего используется:
+Код легко портируется на другие платформы.
+Поддержка интернационализации. The essential part of this support is a type, CFString, instances of which represent an array of 16-bit Unicode characters
+Предоставляет Toll-Free Bridged Types, которые могут каститься к NS типам (из Foundation Framework'a)
+https://developer.apple.com/library/mac/documentation/CoreFoundation/Conceptual/CFDesignConcepts/Articles/tollFreeBridgedTypes.html#//apple_ref/doc/uid/TP40010677-SW1
+
+
+ОПИСАНИЕ ФРЕЙМВОРКА The Foundation Framework
+https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/ObjC_classic/index.html#classes
+
+-----------------------------------------------------------------------------
+ОПИСАНИЕ ФРЕЙМВОРКА Collaboration Framework
+
+Introduction to Identity Services Programming Guid
+https://developer.apple.com/library/mac/documentation/Networking/Conceptual/IdentityServices_ProgGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004490-CH1-DontLinkElementID_20
+
+-----------------------------------------------------------------------------
+ИНИЦИАЛИЗАЦИЯ NSString
+https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Strings/Articles/CreatingStrings.html
+
+-----------------------------------------------------------------------------
+ПРАВИЛА ИМЕНОВАНИЯ МЕТОДОВ - ГОДЕ ГАЙД
+https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingMethods.html
+
+-----------------------------------------------------------------------------
+ИДЕНТИФИКАТОРЫ ПОЛЬЗОВАТЕЛЕЙ И ГРУПП в ФРИБСД
+http://gateway.uz/freebsd/core/252-identifikatory-polzovatelya-gruppy-i-drugie-identifikatory
+
+
+Ctrl+A – в начало строки
+Ctrl+E – в конец строки
+Ctrl+K – удалить строку
+cmd + стрелки влево/вправо - поворот симулятора
+
+Cmd + Y – активировать (деактивировать) точки остановки
+Cmd + Control+Y – продолжить компиляцию (в дебаггере)
+F6 – степ-овер
+Cmd + Opt + ↑ - переключение между заголовочным файлом и файлом исходного текста
+Cmd + двойной щелчок - переключение к определению идентификатора
+Opt + двойной щелчок - найти документацию для идентификатора
+Tab + → или Ctrl + / - выбрать следующий аргумент в автозаполнении
+Shift + Tab + → или Shift + Ctrl + / - выбрать предыдущий аргумент в автозаполнении
+Ctrl + Shift + . - в обратном направлении между вариантами автозаполнения
+Opt + Cmd + двойной щелчок на идентификаторе - найти в документации
+Cmd + двойной щелчок на объекте в Document Window - переключиться к классу в XCode из IB
+Ctrl + Shift + щелчок на объекте - выбрать наложенные друг на друга элементы в Interface Builder
+Cmd + ] или Cmd + [ - табулировать блок кода вправо или влево
+
+Cmd + / - закомментировать блок кода
+
+Cmd + Shift + E - скрыть список файлов над редактором кода
+Cmd + Opt + Shift + E - скрыть список файлов над редактором кода и «Groups and Files»
+Alt + Shift + Cmd + K - очистить папки билда (build)
+
+Cmd + R - запустить программу на выполнение
+Cmd + L - переход к строке с номером
+
+Cmd + Opt + 2  Help о контексте (где стоит курсор)
+
+!!! Описание синтаксиса:
+http://habrahabr.ru/post/107126/ RU
+
+-----------------------------------------------------------------------------
+Для посылки сообщений используется следующий синтаксис:
+
+[receiver message];
+receiver - указатель на объект
+message - имя метода
+
+
+
+-----------------------------------------------------------------------------
+https://developer.apple.com/library/mac/technotes/tn2083/_index.html
+Демоны и агенты
+
+Root and Login Sessions
+https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPMultipleUsers/Concepts/SystemContexts.html#//apple_ref/doc/uid/20002208-107498
+Session Id возможно получить посредством двух фреймворков:
+Security Framework
+Core Graphics Framework
+(The Core Graphics framework relies on the presence of the window server and thus is available only to applications running in a login session. This framework includes the CGSessionCopyCurrentDictionary function for getting information about the current login session, including the user ID and name.)
+
+
+Перечисление всех пользователей в системе
+http://stackoverflow.com/questions/3681895/get-all-users-on-os-x 
+Each identity contains the following required attributes:
+
+A universally unique identifier (UUID)
+A full name (must be unique throughout the system)
+A POSIX ID (UID for a user, GID for a group)
+A systemwide unique name (POSIX name)
+Additionally, identities can contain the following optional attributes:
+
+A home directory (only for users)
+Alternate names, known as aliases
+An email address
+An image
+
+
+-----------------------------------------------------------------------------
+https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/ObjC_classic/
+
+The Foundation framework is designed with these goals in mind:
+
+-Provide a small set of basic utility classes.
+-Make software development easier by introducing consistent conventions for things such as deallocation.
+-Support Unicode strings, object persistence, and object distribution.
+-Provide a level of OS independence, to enhance portability.
+
+The Foundation class hierarchy is rooted in the Foundation framework’s NSObject class.
+
+The Foundation is base class for Cocoa Layer:
+Implement a graphical, event-driven application with the frameworks in the Cocoa layer.
+Start your OS X programming at this highest layer, and you'll accomplish more in fewer lines of code without delving into unnecessary details.
+
+-----------------------------------------------------------------------------
+Все, создаваемые в Objective-С объекты классов должны размещатся в динамической памяти.
+Поэтому особое значение приобретает тип id, который является указателем на объект любого класса (по сути void *).
+Нулевой указатель именуется константой nil. Таким образом, указатель на любой класс можно привести к типу id.
+Возникает проблема: как узнать к какому классу относится объект, скрывающийся под id?
+Это делается благодаря инварианту isa, который присутствует в любом объекте класса, унаследовавшего специальный базовый клас NSObject 
+
+-----------------------------------------------------------------------------
+Протокол Objective-C – это формализованное объявление группы методов, которые,
+по желанию, может реализовать любой класс (аналог класса в С++, где все методы объявлены со спецификатором virtual … = 0).
+В версии языка 2.0 методы протокола могут быть требуемыми (спецификатор @required, он считается умалчиваемым) и выборочными (спецификатор @optional).
+Если какой либо класс реализовал требуемые методы протокола, то он называется классом, поддерживающим данный протокол.
+
+-----------------------------------------------------------------------------
+https://developer.apple.com/library/mac/documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html
+CFBundleIdentifier (Bundle identifier)
+
+The bundle identifier string identifies your application to the system. This string must be a uniform type identifier (UTI) that contains only alphanumeric (A-Z,a-z,0-9), hyphen (-), and period (.) characters. The string should also be in reverse-DNS format. For example, if your company’s domain is Ajax.com and you create an application named Hello, you could assign the string com.Ajax.Hello as your application’s bundle identifier.
+The bundle identifier is used in validating the application signature.
+
+Идентификатор пакета строка идентифицирует ваше приложение в системе. Эта строка должна быть равномерной идентификатор типа (ИМП), который содержит только алфавитно-цифровых символов (AZ, AZ, 0-9), дефис (-), и период символов (.). Строка должна быть в формате обратного DNS. Например, если домен вашей компании является Ajax.com и создать приложение с именем Здравствуйте, вы могли бы назначить строку com.Ajax.Hello как расслоения идентификатора приложения.
+Идентификатор пакета используется при проверке подписи приложений.
+
+Менеджер файлов
+http://nshipster.com/nsfilemanager/
+
+Определение нескольких бандлов для одного приложения
+http://blog.inferis.org/blog/2015/08/14/imagenamed-and-multiple-bundles/
+
+Получить информацию по bundle id
+http://stackoverflow.com/questions/14023618/get-app-name-from-bundle-id
+
+NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary]);
+NSString *appName = [bundleInfo objectForKey:@"CFBundleDisplayName"];
+
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------
+Добавление рута:
+http://www.prostomac.com/2012/02/aktiviruem-root-polzovatelya-v-mac-os-x/
+
+Go->Go to folder-> /System/Library/CoreServices
+значок Applications -> DirectoryUtility
+
+снять замок
+Edit->Enable root user
+
+----------------------------------------------------------------------------------------
+THE PRODIGAL SON: NEXTSTEP
+The development language used was Objective-C.
+http://2people.ru/?p=9
+
+
+
+
+The system offered frameworks and kits, which allowed for rapid GUI development using a rich object library, based on the NSObject.
+Система предлагает механизмы и комплекты, которые позволили для быстрой разработки GUI с использованием богатого объект библиотека, на основе NSObject.
+
+10.8 — Mountain Lion
+In February 2012
+The kernel will also likely be 64-bit only, dropping support for 32-bit APIs
+
+Для подключения по SSH нужно включить Удалённый доступ в Общий доступ
+В OS X все файлы программы хранятся внутри пакета .app.
+
+----------------------------------------------------------------------------------------
+СБОРКА
+
+Просмотр зависимостей
+otool -L hello
+
+Получение bundle id:
+$ osascript -e 'id of app "Finder"'
+
+----------------------------------------------------------------------------------------
+Диск, освобождение места на диске:
+
+Эта команда отключит создание локальных снапшотов и удалит уже созданные
+#sudo tmutil disablelocal
+
+#du -h -d 1 /  посмотреть занято сколько и чем
+#ls -lO        просмотр файлов
+
+----------------------------------------------------------------------------------------
+Установка DMG
+
+$hdiutil mount ./file.dmg
+$hdiutil unmount /dev/device-name
+
+----------------------------------------------------------------------------------------
+МЕНЕДЖЕР ПАКЕТОВ
+
+http://brew.sh/
+package manager for OS X
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+Использование )))
+brew install mc
+
+Удаление
+brew uninstall <package>
+
+Информация о пакете
+brew info postgresql
+
+Показать все установленные пакеты
+brew list
+
+----------------------------------------------------------------------------------------
+ИНФОРМАЦИЯ О СИСТЕМЕ
+uname -a
+
+----------------------------------------------------------------------------------------
+THE USER EXPERIENCE LAYER
+
+Apple lists several components as part of the User Experience layer:
+
+--- Aqua
+
+The system’s first user-mode process, launchd.
+Is responsible for starting the GUI. The main process that maintains the GUI is the WindowServer.
+(Отвечает за запуск GUI. Основной процесс, который поддерживает графический интерфейс является WindowServer)
+Thus, the full path to it is /System/Library/Frameworks/ApplicationServices.framework/Frameworks/CoreGraphics.framework/Resources/WindowServer.
+The window server is started with the -daemon switch. Its code doesn’t really do anything — all
+the work is done by the CGXServer (Core Graphics X Server) of the CoreGraphics framework.
+CGXServer checks whether it is running as a daemon and/or as the main console getty. It then forks
+itself into the background. When it is ready, the LoginWindow (also started by launchd) starts the
+interactive login process.
+
+Возможно загрузиться в режиме консоли, раскоментировав строку, см:
+#cat /etc/ttys | grep console
+
+--- Quick Look
+
+Эти плагины пучки с расширением .qlgenerator, которые могут быть легко установлены
+опуская их в каталог QuickLook (общесистемный в / System / Library / QuickLook, или
+для каждого пользователя, на ~ / Library / QuickLook).
+
+quicklookd является система "QuickLook сервер", и начал при входе из файла
+/System/Library/LaunchAgents/com.apple.quicklook.plist. Демон сам проживает в
+рамки QuickLook и не имеет графического интерфейса. Команда qlmanage может быть использован для поддержания
+плагины и контролировать демона
+
+#qlmanage -m
+
+--- Spotlight
+
+Spotlight is the quick search technology (it has been seamlessly integrated into Finder)
+
+Spotlight can be accessed from the command line using the following commands:
+#mdutil: Manages the MetaData database
+#mdfind: Issues spotlight queries
+#mdimport: Configures and test spotlight plugins
+#mdls: Lists metadata attributes for file
+#mdcheckschema: Validates metadata schemata
+#Mddiagnose: Added in Lion, this utility provides a full diagnostic of the spotlight subsystem
+
+--- Accessibility options
+
+----------------------------------------------------------------------------------------
+OS X–Specific Directories
+OS X adds its own special directories to the UNIX tree, under the system root:
+
+/Applications: Default base for all applications in system.
+/Developer:If XCode is installed, the default installation point for all developer tools.
+/Library: Data files, help, documentation, and so on for system applications.
+/Network: Virtual directory for neighbor node discovery and access.
+/System: Used for System files. It contains only a Library subdirectory, but this directory
+holds virtually every major component of the system, such as frameworks (/System/
+Library/Frameworks), kernel modules (/System/Library/Extensions), fonts, and so on.
+
+/Users: Home directory for users. Every user has his or her own directory created here.
+/Volumes: Mount point for removable media and network fi le systems.
+/Cores: Directory for core dumps, if enabled. Core dumps are created when a process
+crashes, if the ulimit(1) command allows it, and contain the core virtual memory image of
+the process. Core dumps are discussed in detail in Chapter 4, “Process Debugging.”
+
+Finding Frameworks
+Frameworks are stored in several locations on the fi le system:
+/System/Library/Frameworks. Contains Apple’s supplied frameworks — both in iOS and OS X
+/Network/Library/Frameworks may (rarely) be used for common frameworks installed on the network.
+/Library/Frameworks holds 3rd party frameworks (and, as can be expected, the directory is left empty on iOS)
+~/Library/Frameworks holds frameworks supplied by the user, if any
+Additionally, applications may include their own frameworks. Good examples for this are Apple’s
+GarageBand, iDVD, and iPhoto, all of which have application-specifi c frameworks in
+/Contents/Frameworks.
+
+----------------------------------------------------------------------------------------
+Top Level Frameworks
+
+Carbon оставлен для совместимости с OS 9, считается устаревшим
+
+Cocoa is the preferred application programming environment. It is the modern day incarnation of
+the NeXTSTEP environment, as is evident by the prefi x of many of its base classes — NS, short for
+NeXTSTEP/Sun. The preferred language for programming with Cocoa is Objective C, although it
+can be accessed from Java and AppleScript as well.
+
+The “Cocoa” framework just serves to include three others: AppKit, Core-Data and Foundation,
+which can be seen directly, in its Headers/cocoa.h.
+
+#import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
+#import <CoreData/CoreData.h>
+
+Некоторые примеры библиотек:
+Accounts 10.8 5.0 User account database — Single sign on support
+JavaScriptCore 10.5 5.0 The Javascript interpreter used by Safari and other WebKit programs.
+
+----------------------------------------------------------------------------------------
+LIBRARIES
+
+OS X and iOS store their “traditional” libraries in /usr/lib (there is no /lib). The libraries are
+suffi xed with a .dylib extension, rather than the customary .so (shared object) of ELF on other UNIX
+
+The core library — libc — has been absorbed into Apple’s own libSystem.B.dylib. This library
+also provides the functionality traditionally offered by the math library (libm), and PThreads(libpthread)
+Ядро библиотеки libc было поглощено собственной разработкой libSystem.B.dylib
+
+----------------------------------------------------------------------------------------
+OTHER APPLICATION TYPES
+
+Widgets - помещаются на дашборд, являются мини HTML / Javascript / CSS страницами
+
+!!! BSD/Mach Native
+Хотя предпочтительный язык для OS X это Objective-C,
+native приложения могут использовать C/C++, это облегчает портирование кода UNIX code bases.
+Additionally, initiatives such as “MacPorts” and “fi nk” go the extra step by packaging these sources,
+once compiled, into packages akin to Linux’s RPM/APT/DEB model, for quick binary installation.
+
+SYSTEM CALLS
+необходимо использовать /usr/lib/libSystem.B.dylib
+
+----------------------------------------------------------------------------------------
+!!! Mach Layer
+
+Ядро XNU, его атомного ядра, если хотите, это Маха. Мах это система, которая была первоначально
+разработан в университете Карнеги-Меллона (CMU) в качестве научно-исследовательского проекта в создании легкий
+и эффективной платформы для операционных систем. Результат был - микроядро Mach, которое обрабатывает
+только самые примитивные обязанности операционной системы:
+
+Process and thread abstractions
+Virtual memory management
+Task scheduling
+Interprocess communication and messaging
+
+Mach имеет очень ограниченные интерфейсы и не предназначен, чтобы быть полноправным операционной системы.
+Его интерфейсы огорчены, но они являются основополагающими, и без них ничего не будет работать.
+Любая дополнительная функциональность, например, работа с файлами и доступ к устройству, должена быть реализована
+на верхнем уровне - и это именно то, что BSD слой делает.
+
+!!! The BSD Layer
+Это более современный АПИ, который обеспечивает совместимость с POSIX и австракции более высокого
+абстракции более высокого уровня, в том числе:
+
+The UNIX Process model
+The POSIX threading model (Pthread) and its related synchronization primitives
+UNIX Users and Groups
+The Network stack (BSD Socket API)
+File system access
+Device access (through the /dev directory)
+
+Реализация BSD XNU является в значительной степени совместима с FreeBSD
+
+----------------------------------------------------------------------------------------
+!!! Подписка на нотификации процесса
+LISTING 3-1: Using kqueues and kevents to fi lter process events
+
+#praudit /dev/auditpipe
+
+System Calls Used for Auditing in OS X, BSM-Compliant
+см audit()
+
+----------------------------------------------------------------------------------------
+!!! System Configuration
+Much like it deprecates /etc user database fi les, OS X does away with most other configuration files,
+which are traditionally used in UN*X as the system “registry.”
+
+# scutil
+>list
+> show com.apple.network.identification
+и т.д.
+
+Using security(1) to display Apple’s built-in certifi cates on OS X
+#security –i
+>list-keychains
+
+----------------------------------------------------------------------------------------
+!!! PROCESS INFORMATION
+
+sysctl
+proc_info
+<libproc.h>
+<sys/proc_info.h>)
+
+Useful switches for ps
+–A/–e All/every process
+–f “full” information, including start time, CPU time, and TTY.
+–M Shows threads
+–l Long information – including priority/nice, user mode address (paddr) and kernel mode wait address (wchan)
+u Classic “top” like display, including CPU and MEM %, virtual size, and resident set size.
+–v Similar to “u”, but also includes text size and memory limit, among other things.
+–j Job information — including session leader
+
+
+----------------------------------------------------------------------------------------
+Теперь снимем скриншот командой из консоли.
+
+# скриншот окна без тени, результат - в буфер обмена
+screencapture -Wco
+
+# автоматический скриншот всего экрана - в файл с текущим временем
+screencapture shot_`date "+%Y-%m-%d_%H:%M:%S"`.png
+
+
+----------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+

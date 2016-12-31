@@ -1,0 +1,39 @@
+﻿https://msdn.microsoft.com/en-us/library/windows/desktop/ms681928(v=vs.85).aspx
+
+Window station contains a clipboard, an atom table, and one or more desktop objects.
+Когда window station создаётся, она ассоциируется с вызывающим процессом и назначается текущей сессии.
+
+Interactive window station может быть только та, которая отображает пользовательский интерфейс или получает ввод данных от пользователя.
+--> WinSta0 - единственная станция, которая может принимать пользовательский ввод.
+Она назначается logon session of the interactive user, and contains the keyboard, mouse, and display device.
+It is always named "WinSta0".
+
+Остальные станции - не интерактивные.
+When a user logs on to a computer using Remote Desktop Services, a session is started for the user.
+Each session is associated with its own interactive window station named "WinSta0".
+
+--------------------------------------------------------------------------------------------
+
+После подключения пользователя система создаёт десктоп по-умолчанию Winsta0\default.
+Процесс может использовать функцию CreateWindowStation для создания нового окна станции и CreateDesktop (CreateDesktopEx), чтобы создать новый рабочий стол.
+Количество рабочих столов, которые могут быть созданы ограничена размером system desktop heap.
+
+Процесс автоматически устанавливает соединение со станцией и рабочим столом, когда он впервые называет USER32 или функцией GDI32
+(кроме функций станций окна и функций рабочего стола).
+Правила подключения тут https://msdn.microsoft.com/en-us/library/windows/desktop/ms684859(v=vs.85).aspx
+
+См SetProcessWindowStation, CreateDesktopEx
+
+--------------------------------------------------------------------------------------------
+ПРО ДЕСКТОПЫ.
+
+A desktop has a logical display (Десктоп - логический дисплей, содержит окна меню и т.п.)
+Window messages используются только между процессами одного рабочего стола.
+Со станцией Winsta0 может быть связано несколько рабочих столов, но только один - активный (input desktop).
+
+Приложения могут использовать функцию OpenInputDesktop, чтобы получить хэндл на активный рабочий стол.
+Приложение может сменить рабочий стол SwitchDesktop.
+
+--> By default, there are three desktops in the interactive window station: Default, ScreenSaver, and Winlogon.
+--> Во время сеанса пользователя, система переключается на рабочий стол Winlogon, когда пользователь нажимает комбинацию клавиш CTRL + ALT + DEL
+

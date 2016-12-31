@@ -1,0 +1,178 @@
+﻿
+-----------------------------------------------------------------------------------
+http://severe-programmer.com/manual/zhiznennyj-cikl-uiviewcontrollera-pytaemsya-razobratsya-ios-7-ios-8-swift-edition/
+!!! https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIViewController_Class/ 
+!!! https://developer.xamarin.com/api/type/UIKit.UIViewController/   swift
+!!! https://habrahabr.ru/post/129557/
+Жизненный цикл UIViewController’а
+
+!!! https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/TheAppLifeCycle/TheAppLifeCycle.html
+
+
+-----------------------------------------------------------------------------------
+CONTROLLER.UIApplication
+
+Управляет циклом событий и другими типами поведения приложений высокого уровня.
+Он также сообщает ключевые переходы приложения и некоторые специальные события (например, входящих уведомлений Push) своего делегата, который представляет собой пользовательский объект можно определить.
+Используйте объект UIApplication как-то есть без подклассов (т.е. от него не наследуют).
+
+-----------------------------------------------------------------------------------
+CONTROLLER.AppDelegate
+
+The app delegate is the heart of your custom code. This object works in tandem with the UIApplication object to handle app initialization, state transitions, and many high-level app events.
+This object is also the only one guaranteed to be present in every app, so it is often used to set up the app’s initial data structures.
+
+Приложение делегат является сердцем вашего пользовательского кода. Этот объект работает в тандеме с объектом UIApplication для обработки приложений инициализации, переходы между состояниями, а также множество приложений мероприятий высокого уровня.
+Этот объект также является единственным гарантированно присутствовать в каждом приложении, поэтому он часто используется для установки начальных структур данных приложения.
+
+-----------------------------------------------------------------------------------
+MODEL.Data model
+
+Data model objects store your app’s content and are specific to your app. For example, a banking app might store a database containing financial transactions, whereas a painting app might store an image object or even the sequence of drawing commands that led to the creation of that image. (In the latter case, an image object is still a data object because it is just a container for the image data.)
+Модель данных объектов хранения содержимого вашего приложения и являются специфическими для вашего приложения. Например, банковское приложение может хранить базу данных, содержащую финансовые операции, в то время как картина приложение может хранить изображение объекта или даже последовательность команд рисования, которые привели к созданию этого образа. (В последнем случае, объект изображения по-прежнему является объектом данных, потому что это просто контейнер для хранения данных изображения.)
+
+Apps can also use document objects (custom subclasses of UIDocument) to manage some or all of their data model objects. Document objects are not required but offer a convenient way to group data that belongs in a single file or file package. For more information about documents, see Document-Based App Programming Guide for iOS.
+Приложения могут также использовать объекты документа (пользовательские подклассы UIDocument) для управления некоторыми или все свои модели данных объектов. Объекты документа не требуется, но предлагают удобный способ для группировки данных, которая принадлежит в одном пакете файлов или файлов. Дополнительные сведения о документах см на основе документов App Руководство по программированию для IOS.
+
+-----------------------------------------------------------------------------------
+CONTROLLER.UIViewController
+
+Класс UIViewController является базовым классом для всех объектов View Controller. Он предоставляет функциональные возможности по умолчанию для загрузки представления, представляя их, вращая их в ответ на поворотах устройства, а также несколько других стандартных систем поведения.
+UIKit и другие структуры определяют дополнительные классы представлений контроллеров для реализации стандартных интерфейсов системы, такие как сборщика изображения, панели вкладок интерфейс и интерфейс для навигации.
+
+The UIViewController class is the base class for all view controller objects. It provides default functionality for loading views, presenting them, rotating them in response to device rotations, and several other standard system behaviors.
+UIKit and other frameworks define additional view controller classes to implement standard system interfaces such as the image picker, tab bar interface, and navigation interface.
+
+Для получения более подробной информации о том, как использовать контроллеры просмотра, см Руководство по программированию View Controller для IOS.
+
+-----------------------------------------------------------------------------------
+VIEW.UIWindow
+
+A UIWindow object coordinates the presentation of one or more views on a screen. Most apps have only one window, which presents content on the main screen, but apps may have an additional window for content displayed on an external display.
+To change the content of your app, you use a view controller to change the views displayed in the corresponding window. You never replace the window itself.
+In addition to hosting views, windows work with the UIApplication object to deliver events to your views and view controllers.
+
+Объект UIWindow координирует презентацию одного или нескольких представлений на экране. Большинство приложений имеют только одно окно, в котором представлены содержимое на главном экране, но приложения могут иметь дополнительное окно для контента, отображаемого на внешнем дисплее.
+Чтобы изменить содержимое вашего приложения, вы используете контроллер представления, чтобы изменить вид на отображаемые в соответствующем окне. Вы никогда не заменит самого окна.
+В дополнение к хостинг видом, окна работать с объектом UIApplication, чтобы доставить события ваши мнения и просматривать контроллеры.
+
+-----------------------------------------------------------------------------------
+VIEW. View objects, control objects, and layer objects
+
+Views and controls provide the visual representation of your app’s content. A view is an object that draws content in a designated rectangular area and responds to events within that area. Controls are a specialized type of view responsible for implementing familiar interface objects such as buttons, text fields, and toggle switches.
+The UIKit framework provides standard views for presenting many different types of content. You can also define your own custom views by subclassing UIView (or its descendants) directly.
+In addition to incorporating views and controls, apps can also incorporate Core Animation layers into their view and control hierarchies. Layer objects are actually data objects that represent visual content. Views use layer objects intensively behind the scenes to render their content. You can also add custom layer objects to your interface to implement complex animations and other types of sophisticated visual effects. 
+
+Виды и элементы управления обеспечивают визуальное представление содержимого вашего приложения. Представление является объектом, который рисует содержание в назначенном прямоугольной области и реагирует на события в пределах этой области. Органы управления представляют собой специализированный тип зрения, отвечающего за реализацию знакомые объекты интерфейса, такие как кнопки, текстовые поля и тумблеров.
+Структура UIKit обеспечивает стандартные представления для представления различных типов контента. Вы также можете определить свои собственные взгляды пользовательских путем создания подклассов UIView (или его потомков) непосредственно.
+В дополнение к включению взглядов и управления, приложения могут также включать в себя Core Animation слои в их просмотра и управления иерархией. Объекты слоя на самом деле являются объектами данных, которые представляют собой визуальный контент. Представления используют объекты слоя интенсивно за кулисами, чтобы сделать их содержание. Можно также добавлять объекты пользовательского слоя к интерфейсу для реализации сложной анимации и другие виды сложных визуальных эффектов.
+
+-----------------------------------------------------------------------------------
+
+What distinguishes one iOS app from another is the data it manages (and the corresponding business logic) and how it presents that data to the user. Most interactions with UIKit objects do not define your app but help you to refine its behavior. For example, the methods of your app delegate let you know when the app is changing states so that your custom code can respond appropriately.
+Что отличает одно приложение от другого ОС IOS это данные, он управляет (и соответствующей бизнес-логики) и как она представляет, что данные пользователю. Большинство взаимодействий с объектами UIKit не определяют ваше приложение, но поможет вам усовершенствовать свое поведение. Например, методы делегат своего приложения вы знаете, когда приложение изменяет состояние так, что пользовательский код может реагировать соответствующим образом.
+
+-----------------------------------------------------------------------------------
+
+The Role of View Controllers
+
+ViewController
+https://developer.apple.com/library/ios/featuredarticles/ViewControllerPGforiPhoneOS/index.html#//apple_ref/doc/uid/TP40007457
+
+View controllers are the foundation of your app’s internal structure.
+Вью контроллеры являются основой внутренней структуры вашего приложения.
+
+Every app has at least one view controller, and most apps have several.
+Каждое приложение имеет, по меньшей мере, один контроллер представления, и большинство приложений имеют несколько.
+
+Because they play such an important role in your app, view controllers are at the center of almost everything you do.
+Потому что они играют такую ​​важную роль в вашем приложении, просматривать контроллеры находятся в центре почти все, что вы делаете.
+
+There are two types of view controllers:
+
+    Content view controllers manage a discrete piece of your app’s content and are the main type of view controller that you create.
+	Вью контроллеры View Manage дискретную часть содержимого вашего приложения и являются основным типом зрения контроллера, который вы создаете.
+	
+    Container view controllers collect information from other view controllers (known as child view controllers) and present it in a way that facilitates navigation or presents the content of those view controllers differently.
+	Вид на контейнерные контроллеры сбора информации от других контроллеров просмотреть (известный как контроллеры зрения ребенка) и представить его таким образом, что облегчает навигацию или представляет содержание этих контроллеров зрения по-разному.
+
+Most apps are a mixture of both types of view controllers. 
+Большинство приложений представляют собой смесь обоих типов контроллеров представления.
+
+
+Managing Memory Efficiently
+Although most aspects of memory allocation are for you to decide, Table 4-1 lists the methods of UIViewController where you are most likely to allocate or deallocate memory.
+Most deallocations involve removing strong references to objects. To remove a strong reference to an object, set properties and variables pointing to that object to nil.
+Хотя большинство аспектов распределения памяти и предназначены для того, чтобы решить, Таблица 4-1 перечислены методы UIViewController, где вы, скорее всего, выделить или DEALLOCATE памяти.
+Большинство deallocations включают в себя удаление сильных ссылок на объекты. Чтобы удалить сильную ссылку на объект, установить свойства и переменные, указывающие на объект, к нулю.
+
+1) whether it is named init or something else (Allocate critical data structures required by your view controller)
+2) viewDidLoad (Allocate or load data to be displayed in your view)
+3) didReceiveMemoryWarning (Respond to low-memory notifications)
+4) dealloc (Release critical data structures required by your view controller)
+
+
+
+
+
+
+----------------------------------------------------
+https://developer.apple.com/library/ios/featuredarticles/ViewControllerPGforiPhoneOS/index.html#//apple_ref/doc/uid/TP40007457
+View Management
+
+ViewController управляет иерархией Views.
+Каждый ViewController содержит один root View.
+ViewController всегда содержит ссылку на свой root View.
+Каждый View может содержать ссылку на дочерние View.
+
+Content ViewController управляет иерархией самостоятельно.
+Container ViewController управляет иерархией посредством ViewController'ов дочерних View.
+На практике оба подхода часто смешиваются.
+----------------------------------------------------
+Data Marshaling
+
+Clean separation of responsibilities - необходимо чёткое разделение обязанностей.
+ViewController должен "принять"(распаковать) данные, отобразить и "отправить"(упаковать).
+Для выделения данных из ViewController нужно использовать UIDocument который умеет читать и записывать данные в постоянное хранилище.
+----------------------------------------------------
+User Interactions (Взаимодействие с пользователем).
+
+ViewController'ы могут обрабатывать события (они Responder object), однако обычно они делают это при помощи
+делегатов и action-методов.
+----------------------------------------------------
+!!!  https://developer.apple.com/library/ios/featuredarticles/ViewControllerPGforiPhoneOS/TheAdaptiveModel.html#//apple_ref/doc/uid/TP40007457-CH19-SW1
+The Adaptive Model
+
+Обычно используют один ViewController, который адаптирует свои View, в зависимости от параметров устройства.
+
+----------------------------------------------------
+----------------------------------------------------
+
+https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/CreatingWindows/CreatingWindows.html
+WINDOW
+
+Каждому приложению iOS требуется хотя бы один экземпляр класса UIWindow, некоторые могут содержать более одного.
+Окно может создаваться программно или через IB. Указатель на окно должен быть сохранён в AppDelegate.
+Создание окна не является дорогостоящей операцией, однако, если приложение запускается в фоновом режиме, оно не должно быть видимым.
+Окно рекомендуется делать по размеру экрана девайса, т.к. окно перехватывает события (например, движение пальца по экрану).
+View по-умолчанию не обрезаются по границе экрана и могут не получить некоторые события.
+
+Creating a Window Programmatically:
+
+application:didFinishLaunchingWithOptions:
+   self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+
+----------------------------------------------------
+
+VIEWS
+
+Главным образом отвечает за отображение контента и взаимодействие с пользователем.
+View возможно создать программно:
+
+CGRect  viewRect = CGRectMake(0, 0, 100, 100);
+UIView* myView = [[UIView alloc] initWithFrame:viewRect];
+
+
+
+
+
