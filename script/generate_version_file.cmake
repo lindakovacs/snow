@@ -1,3 +1,4 @@
+### The following function generates the file with build version numbers.
 
 function(generate_version_file file_name version_major version_minor version_patch build_num)
   if("${build_num}" STREQUAL "")
