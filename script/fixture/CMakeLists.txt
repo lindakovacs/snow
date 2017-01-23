@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(snow_download)
+project(snow_fixture)
 
 set(TEMP_DIRECTORY "${CMAKE_SOURCE_DIR}/temp")
 set(EXECUTABLE_OUTPUT_PATH "${TEMP_DIRECTORY}")
