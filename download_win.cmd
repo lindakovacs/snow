@@ -1,8 +1,8 @@
 echo off
 set path_current=%~dp0
 set path_current=%path_current:~0,-1%
-set path_posix=%path_current:\=/%/script/download
-set path_project=%path_current%\script\download\temp
+set path_posix=%path_current:\=/%/script/fixture
+set path_project=%path_current%\script\fixture\temp
 
 rmdir %path_project% /s /q
 mkdir %path_project%

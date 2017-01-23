@@ -4,8 +4,6 @@
 #include <gtest/gtest.h>
 #include <build/version.h>
 
-static const volatile char* BuildVersion = BUILD_VERSION_STR;
-
 int main(int argc, char** argv)
 {
   ::testing::InitGoogleTest(&argc, argv);
@@ -24,4 +22,3 @@ Contents of section .rodata:
  47b120 3d312e34 2e31322e 31313430 00000000  =1.2.1.40....
 
 ------------------------------------------------------------------------------------------------
-
