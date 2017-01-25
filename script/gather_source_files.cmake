@@ -1,0 +1,9 @@
+
+if(WIN32)
+  file(GLOB PLATFORM_SOURCE_FILES win/*.cpp)
+else()
+  file(GLOB PLATFORM_SOURCE_FILES lin/*.cpp)
+endif()
+
+file(GLOB SOURCE_FILES *.cpp)
+list(APPEND SOURCE_FILES "${PLATFORM_SOURCE_FILES}")
