@@ -1,1 +1,1 @@
-./lib/* binary
+./lib/* -crlf -diff
