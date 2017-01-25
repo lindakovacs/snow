@@ -1,5 +1,5 @@
 #!/bin/bash
-path_posix="$(pwd)"/script/fixture
+path_posix="$(pwd)"/script/$1
 path_project=$path_posix/temp
 
 echo "project root: "$path_posix

@@ -1,6 +1,11 @@
 #!/bin/bash
 
-./download_lin.sh
+./launch_lin.sh download
+if [[ $? -ne 0 ]]; then
+  exit 1
+fi
+
+./launch_lin.sh fixture
 if [[ $? -ne 0 ]]; then
   exit 1
 fi
