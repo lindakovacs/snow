@@ -1,5 +1,5 @@
 #include "win_hr.h"
-#include <libs/core/com_initialization.h>
+#include <core/com_initialization.h>
 #include <atlcomcli.h>
 
 namespace Core

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <libs/core/thread_pool.h>
+#include <core/thread_pool.h>
 #include <windows.h>
 #include <map>
 

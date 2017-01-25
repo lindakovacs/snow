@@ -1,4 +1,4 @@
-#include <libs/core/com_initialization.h>
+#include <core/com_initialization.h>
 
 namespace Core
 {

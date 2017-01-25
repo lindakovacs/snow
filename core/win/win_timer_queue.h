@@ -1,6 +1,6 @@
 #pragma once
 
-#include <libs/core/timer_queue.h>
+#include <core/timer_queue.h>
 #include <windows.h>
 
 namespace Core
