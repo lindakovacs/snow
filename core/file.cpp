@@ -1,4 +1,4 @@
-﻿#include "file.h"
+#include "file.h"
 #include "string_utils.h"
 #include <algorithm>
 
