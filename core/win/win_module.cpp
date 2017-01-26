@@ -1,4 +1,4 @@
-﻿#include <core/module.h>
+#include <core/module.h>
 #include <cstdint>
 #include <windows.h>
 
