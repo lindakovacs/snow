@@ -1,8 +1,8 @@
 #pragma once
 
-#include <list>
 #include <sstream>
 #include <string>
+#include <vector>
 
 namespace Core
 {
@@ -12,7 +12,9 @@ namespace Core
   // 'ABC' -> 'ABC'
   // '|||' -> empty list
   // '' -> empty list
-  std::list<std::wstring> Split(const std::wstring& multistring, const std::wstring& delimeters);
+  std::vector<std::wstring> Split(const std::wstring& multistring, const std::wstring& delimeters);
+
+  std::wstring RemoveLastSegment(const std::wstring& source, const std::wstring& delimeters);
 
   std::wstring ToWstring(const std::string& source);
   std::string ToUtf8(const std::wstring& source);

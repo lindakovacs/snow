@@ -1,5 +1,4 @@
 #include "string_utils.h"
-#include <vector>
 
 // TODO: gcc < 5 is not supported converters, investigate other way
 #ifdef WIN32
@@ -8,9 +7,9 @@
 
 namespace Core
 {
-  std::list<std::wstring> Split(const std::wstring& multistring, const std::wstring& delimeters)
+  std::vector<std::wstring> Split(const std::wstring& multistring, const std::wstring& delimeters)
   {
-    std::list<std::wstring> strings;
+    std::vector<std::wstring> strings;
     std::size_t start = 0;
     while (start < multistring.size())
     {
@@ -26,7 +25,19 @@ namespace Core
       }
       start = pos + 1;
     }
-    return strings;
+    return std::move(strings);
+  }
+
+  std::wstring RemoveLastSegment(const std::wstring& source, const std::wstring& delimeters)
+  {
+    std::wstring target = source;
+    const std::size_t pos = source.find_last_of(delimeters);
+    if (pos == std::wstring::npos)
+    {
+      return std::move(target);
+    }
+    target.erase(pos, target.size() - pos);
+    return std::move(target);
   }
 
   template<typename T1, typename T2>
