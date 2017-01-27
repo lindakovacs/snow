@@ -14,6 +14,8 @@ namespace Core
   // '' -> empty list
   std::vector<std::wstring> Split(const std::wstring& multistring, const std::wstring& delimeters);
 
+  // Example (delimeter is "\\/"):
+  // /user/vika/books/never_ending_story.pdf -> /user/vika/books
   std::wstring RemoveLastSegment(const std::wstring& source, const std::wstring& delimeters);
 
   std::wstring ToWstring(const std::string& source);
