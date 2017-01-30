@@ -36,4 +36,7 @@ namespace Core
     FromString(source, result);
     return result;
   }
+
+  std::string Format(const char* format, ...);
+  std::wstring Format(const wchar_t* format, ...);
 }

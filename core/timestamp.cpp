@@ -1,28 +1,15 @@
+#include "string_utils.h"
 #include "timestamp.h"
 
 #include <ctime>
 #include <sstream>
 #include <vector>
 
-#if defined (_MSC_VER) && (_MSC_VER < 1900)
-  // Visual Studio 2013, Visual Studio 2012, ...
-  #define SNPRINTF ::_snprintf_c
-#else
-  // Visual Studio 2015, GCC
-  #define SNPRINTF ::snprintf
-#endif
-
 namespace Core
 {
   std::string FormatTimeString(unsigned year, unsigned month, unsigned day, unsigned hour, unsigned minute, unsigned second, unsigned milliseconds)
   {
-    std::vector<char> buffer(1024, 0);
-    while (SNPRINTF(&buffer.front(), buffer.size(), "%04u.%02u.%02u %02u:%02u:%02u.%03u", year, month, day, hour, minute, second, milliseconds) < 0)
-    {
-      buffer.resize(buffer.size() * 2, 0); // TODO: check max size
-    }
-    buffer.push_back(0);
-    return std::string(&buffer.front());
+    return Format("%04u.%02u.%02u %02u:%02u:%02u.%03u", year, month, day, hour, minute, second, milliseconds);
   }
 
   long long GetTimePartInMilliseconds(const std::chrono::system_clock::time_point& timePoint)

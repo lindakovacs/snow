@@ -1,8 +1,21 @@
 #include "string_utils.h"
 
+#include <cstdarg>
+#include <cstdio>
+
 // TODO: gcc < 5 is not supported converters, investigate other way
 #ifdef WIN32
 #include <codecvt>
+#endif
+
+#if defined (_MSC_VER) && (_MSC_VER < 1900)
+// Visual Studio 2013, Visual Studio 2012, ...
+#define SNPRINTF ::_snprintf_c
+#define SNPRINTFW ::_snwprintf_c
+#else
+// Visual Studio 2015, GCC
+#define SNPRINTF ::vsnprintf
+#define SNPRINTFW ::vswprintf
 #endif
 
 namespace Core
@@ -75,5 +88,35 @@ namespace Core
     std::vector<char> buffer(source.size() + 1, 0);
     return ConvertFast(&buffer.front(), buffer.size(), source.c_str(), source.size());
 #endif
+  }
+
+  std::string Format(const char* format, ...)
+  {
+    std::vector<char> buffer(256, 0);
+    va_list arguments;
+    va_start(arguments, format);
+
+    while (SNPRINTF(&buffer.front(), buffer.size(), format, arguments) < 0)
+    {
+      buffer.resize(buffer.size() * 2, 0);
+    }
+    va_end(arguments);
+    buffer.push_back(0);
+    return &buffer.front();
+  }
+
+  std::wstring Format(const wchar_t* format, ...)
+  {
+    std::vector<wchar_t> buffer(256, 0);
+    va_list arguments;
+    va_start(arguments, format);
+
+    while (SNPRINTFW(&buffer.front(), buffer.size(), format, arguments) < 0)
+    {
+      buffer.resize(buffer.size() * 2, 0);
+    }
+    va_end(arguments);
+    buffer.push_back(0);
+    return &buffer.front();
   }
 }
