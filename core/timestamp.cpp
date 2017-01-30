@@ -2,8 +2,6 @@
 #include "timestamp.h"
 
 #include <ctime>
-#include <sstream>
-#include <vector>
 
 namespace Core
 {
