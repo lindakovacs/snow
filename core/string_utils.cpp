@@ -45,11 +45,10 @@ namespace Core
   {
     std::wstring target = source;
     const std::size_t pos = source.find_last_of(delimeters);
-    if (pos == std::wstring::npos)
+    if (pos != std::wstring::npos)
     {
-      return std::move(target);
+      target.erase(pos, target.size() - pos);
     }
-    target.erase(pos, target.size() - pos);
     return std::move(target);
   }
 
