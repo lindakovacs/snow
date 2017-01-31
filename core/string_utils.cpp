@@ -11,7 +11,7 @@
 #if defined (_MSC_VER) && (_MSC_VER < 1900)
 // Visual Studio 2013, Visual Studio 2012, ...
 #define SNPRINTF ::_snprintf_c
-#define SNPRINTFW ::_snwprintf_c
+#define SNPRINTFW ::_swprintf_c
 #else
 // Visual Studio 2015, GCC
 #define SNPRINTF ::vsnprintf
