@@ -20,6 +20,7 @@ message("link_directories = ${LIBRARY_OUTPUT_PATH}")
 generate_version_file("${CMAKE_SOURCE_DIR}/build/version.h" "1" "1" "4" "$ENV{BUILD_NUMBER}")
 
 add_subdirectory(core)
+add_subdirectory(network)
 add_subdirectory(research/core_test)
 ## add_subdirectory(research/gtest)
 add_subdirectory(research/stream_client)
