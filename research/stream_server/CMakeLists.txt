@@ -6,6 +6,7 @@ file(GLOB SOURCE_FILES *.cpp)
 
 if(WIN32)
   add_executable(${PROJECT_NAME} ${SOURCE_FILES} description.rc)
+  target_link_libraries(${PROJECT_NAME} Ws2_32.lib)
 else()
   add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 endif()
@@ -13,4 +14,5 @@ endif()
 target_link_libraries(
   ${PROJECT_NAME}
   snow_core
+  snow_network
 )
