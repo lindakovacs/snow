@@ -7,10 +7,9 @@ namespace Network
 {
   WinSocket::WinSocket()
   {
-    const int error = ::WSAStartup(MAKEWORD(2, 2), &WsaData);
-    if (error != 0)
+    if (::WSAStartup(MAKEWORD(2, 2), &WsaData))
     {
-      throw std::runtime_error("WSAStartup failed, error: " + std::to_string(error));
+      throw std::runtime_error("WSAStartup failed with error: " + std::to_string(::WSAGetLastError()));
     }
   }
 
