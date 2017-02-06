@@ -1,6 +1,6 @@
 #pragma once
 
-#include <memory>
+#include "interface_enumerator.h"
 
 namespace Network
 {
@@ -8,8 +8,9 @@ namespace Network
   {
   public:
     typedef std::shared_ptr<Socket> Sptr;
-  
+    virtual ~Socket() {}
+    virtual void EnableNonBlockingMode() = 0;
   };
 
-  Socket::Sptr CreateSocket();
+  std::vector<Socket::Sptr> CreateListeningSockets(const std::vector<AddressInformation>& interfaces);
 }

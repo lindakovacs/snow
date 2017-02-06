@@ -40,6 +40,9 @@ namespace Network
       info.Family = entry->ai_family;
       info.Socktype = entry->ai_socktype;
       info.Protocol = entry->ai_protocol;
+      info.AddressSize = entry->ai_addrlen;
+      info.Address = entry->ai_addr;
+
       interfaces.push_back(std::move(info));
     }
     return std::move(interfaces);

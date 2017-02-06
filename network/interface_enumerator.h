@@ -10,6 +10,8 @@ namespace Network
     int Family = 0;
     int Socktype = 0;
     int Protocol = 0;
+    size_t AddressSize = 0;
+    void* Address = 0;
   };
 
   class InterfaceEnumerator

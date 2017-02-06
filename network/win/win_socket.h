@@ -10,10 +10,11 @@ namespace Network
   class WinSocket: public Socket
   {
   public:
-    WinSocket();
-    ~WinSocket();
+    explicit WinSocket(SOCKET handle);
+    virtual ~WinSocket();
+    virtual void EnableNonBlockingMode();
 
   private:
-    WSADATA WsaData;
+    SOCKET Handle;
   };
 }
