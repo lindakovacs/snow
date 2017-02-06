@@ -8,7 +8,7 @@ namespace Core
   {
     if (error == nullptr)
     {
-      return L"exception is null";
+      return L"raised an null-exception";
     }
 
     std::wstring result = L"exception is not defined";
