@@ -2,6 +2,7 @@
 
 #include <core/string_utils.h>
 
+#include <cstdint>
 #include <stdexcept>
 #include <string>
 

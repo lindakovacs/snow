@@ -8,16 +8,6 @@
 #include <codecvt>
 #endif
 
-#if defined (_MSC_VER) && (_MSC_VER < 1900)
-// Visual Studio 2013, Visual Studio 2012, ...
-#define SNPRINTF ::_snprintf_c
-#define SNPRINTFW ::_swprintf_c
-#else
-// Visual Studio 2015, GCC
-#define SNPRINTF ::vsnprintf
-#define SNPRINTFW ::vswprintf
-#endif
-
 namespace Core
 {
   std::vector<std::wstring> Split(const std::wstring& multistring, const std::wstring& delimeters)
@@ -95,7 +85,7 @@ namespace Core
     va_list arguments;
     va_start(arguments, format);
 
-    while (SNPRINTF(&buffer.front(), buffer.size(), format, arguments) < 0)
+    while (::vsnprintf(&buffer.front(), buffer.size(), format, arguments) < 0)
     {
       buffer.resize(buffer.size() * 2, 0);
     }
@@ -110,7 +100,7 @@ namespace Core
     va_list arguments;
     va_start(arguments, format);
 
-    while (SNPRINTFW(&buffer.front(), buffer.size(), format, arguments) < 0)
+    while (::vswprintf(&buffer.front(), buffer.size(), format, arguments) < 0)
     {
       buffer.resize(buffer.size() * 2, 0);
     }

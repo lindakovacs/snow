@@ -4,13 +4,21 @@
 
 int main(int argc, char** argv)
 {
+  int code = EXIT_FAILURE;
   try
   {
+    Core::CreateTracer(TraceLevel::All);
+    CoreTrace(TraceLevel::Information, L"starting up");
+
     Research::TestStreamServer();
+
+    CoreTrace(TraceLevel::Information, L"shutting down");
+    code = EXIT_SUCCESS;
   }
   catch (...)
   {
     CoreTraceError();
   }
-  return 0;
+  Core::CloseTracer();
+  return code;
 }

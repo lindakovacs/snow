@@ -1,4 +1,5 @@
 #include "file.h"
+#include "module.h"
 #include "string_utils.h"
 #include "timestamp.h"
 #include "tracer.h"
@@ -23,8 +24,8 @@ namespace Core
   };
 
   FileTracer::FileTracer(std::uint32_t levels, const std::wstring& fileName)
-  : Levels(levels)
-  , Writer(fileName)
+    : Levels(levels)
+    , Writer(fileName)
   {
   }
 
@@ -47,6 +48,12 @@ namespace Core
     TracerInstance.reset(new FileTracer(levels, fileName));
   }
 
+  void CloseTracer()
+  {
+    std::lock_guard<std::mutex> lock(TracerInstanceGuard);
+    TracerInstance.reset();
+  }
+
   void Trace(std::uint32_t level, const std::wstring& message)
   {
     std::lock_guard<std::mutex> lock(TracerInstanceGuard);
@@ -54,5 +61,14 @@ namespace Core
     {
       TracerInstance->Set(level, message);
     }
+  }
+
+  std::wstring GetDefaultTraceFileName()
+  {
+    std::wstring name = GatherCurrentModulePath();
+#ifdef WIN32
+    name = RemoveLastSegment(name, L".");
+#endif
+    return name + L".diagnostics";
   }
 }
