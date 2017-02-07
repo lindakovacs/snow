@@ -40,6 +40,28 @@ namespace Network
     }
   }
 
+  void WinSocket::DisableSendBuffering()
+  {
+    int zero = 0;
+    if (::setsockopt(Handle, SOL_SOCKET, SO_SNDBUF, (char*)&zero, sizeof(zero)) == SOCKET_ERROR)
+    {
+      throw std::runtime_error(Core::Format("can't disable send buffering on the socket with error = %d\n", ::WSAGetLastError()));
+    }
+  }
+
+  void WinSocket::ForceSubsequent()
+  {
+    LINGER lingerStruct = {};
+    lingerStruct.l_onoff = 1;
+    lingerStruct.l_linger = 0;
+    ::setsockopt(Handle, SOL_SOCKET, SO_LINGER, (char*)&lingerStruct, sizeof(lingerStruct));
+  }
+
+  std::uint64_t WinSocket::GetHandle()
+  {
+    return Handle;
+  }
+
   std::string MakeErrorMessage(const std::string& whatFailed, const AddressInformation& address)
   {
     const std::string& message = whatFailed + " failed, error = %d, ignoring this address (family = %d, socktype = %d, protocol = %d) and continuing with the next.\n";
@@ -51,7 +73,7 @@ namespace Network
     std::vector<Socket::Sptr> sockets;
     for (const AddressInformation& address : interfaces)
     {
-      const SOCKET handle = ::WSASocket(address.Family, address.Socktype, address.Protocol, nullptr, 0, 0);
+      const SOCKET handle = ::WSASocket(address.Family, address.Socktype, address.Protocol, nullptr, 0, WSA_FLAG_OVERLAPPED);
       if (handle == INVALID_SOCKET)
       {
         // TODO: trace MakeErrorMessage("WSASocket", address);
@@ -71,7 +93,8 @@ namespace Network
         continue;
       }
 
-      socket->EnableNonBlockingMode();
+      // socket->EnableNonBlockingMode();
+      socket->DisableSendBuffering();
 
       // TODO: trace    all went well. add this to the list of listening sockets.
       sockets.push_back(socket);

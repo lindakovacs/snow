@@ -1,6 +1,12 @@
 #pragma once
 
+#include <core/application.h>
+
 namespace Research
 {
-  void TestStreamServer();
+  class StreamServer : public Core::Application
+  {
+  private:
+    virtual void Execute();
+  };
 }
