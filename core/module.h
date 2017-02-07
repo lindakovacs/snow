@@ -5,4 +5,5 @@
 namespace Core
 {
   std::wstring GatherCurrentModulePath();
+  std::wstring GatherCurrentModulePathWithoutExt();
 }

@@ -23,7 +23,9 @@ namespace Core
     virtual void Set(std::uint32_t level, const std::wstring& message) = 0;
   };
 
+  const std::wstring DefaultTraceFileNameExt = L"diagnostics";
   std::wstring GetDefaultTraceFileName();
+
   void CreateTracer(std::uint32_t levels, const std::wstring& fileName = GetDefaultTraceFileName());
   void CloseTracer();
   void Trace(std::uint32_t level, const std::wstring& message);

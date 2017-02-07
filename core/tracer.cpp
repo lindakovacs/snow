@@ -65,10 +65,6 @@ namespace Core
 
   std::wstring GetDefaultTraceFileName()
   {
-    std::wstring name = GatherCurrentModulePath();
-#ifdef WIN32
-    name = RemoveLastSegment(name, L".");
-#endif
-    return name + L".diagnostics";
+    return GatherCurrentModulePathWithoutExt() + L"." + DefaultTraceFileNameExt;
   }
 }
