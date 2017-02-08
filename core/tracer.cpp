@@ -16,7 +16,7 @@ namespace Core
   public:
     FileTracer(std::uint32_t levels, const std::wstring& fileName);
     virtual ~FileTracer();
-    virtual void Set(std::uint32_t level, const std::wstring& message);
+    virtual void Set(std::uint32_t level, const std::wstring& message, const std::string& func);
 
   private:
     const std::uint32_t Levels;
@@ -33,13 +33,13 @@ namespace Core
   {
   }
 
-  void FileTracer::Set(std::uint32_t level, const std::wstring& message)
+  void FileTracer::Set(std::uint32_t level, const std::wstring& message, const std::string& func)
   {
     if ((Levels & level) == 0)
     {
       return;
     }
-    Writer.Write("[" + GetTimestamp() + "][" + std::to_string(level) + "] " + ToUtf8(message) + "\n");
+    Writer.Write("[" + GetTimestamp() + "][" + Format("% 6u", GatherCurrentProcessId()) + "][" + std::to_string(level) + "][" + func + "] " + ToUtf8(message) + "\n");
   }
 
   void CreateTracer(std::uint32_t levels, const std::wstring& fileName)
@@ -54,12 +54,12 @@ namespace Core
     TracerInstance.reset();
   }
 
-  void Trace(std::uint32_t level, const std::wstring& message)
+  void Trace(std::uint32_t level, const std::wstring& message, const std::string& func)
   {
     std::lock_guard<std::mutex> lock(TracerInstanceGuard);
     if (TracerInstance)
     {
-      TracerInstance->Set(level, message);
+      TracerInstance->Set(level, message, func);
     }
   }
 

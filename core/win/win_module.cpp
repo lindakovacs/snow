@@ -12,4 +12,9 @@ namespace Core
     // TODO: handle error
     return buffer;
   }
+
+  std::uint32_t GatherCurrentProcessId()
+  {
+    return static_cast<std::uint32_t>(::GetCurrentProcessId());
+  }
 }

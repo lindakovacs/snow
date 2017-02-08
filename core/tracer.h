@@ -20,7 +20,7 @@ namespace Core
   public:
     typedef std::shared_ptr<Tracer> Sptr;
     virtual ~Tracer() {}
-    virtual void Set(std::uint32_t level, const std::wstring& message) = 0;
+    virtual void Set(std::uint32_t level, const std::wstring& message, const std::string& func) = 0;
   };
 
   const std::wstring DefaultTraceFileNameExt = L"diagnostics";
@@ -28,8 +28,8 @@ namespace Core
 
   void CreateTracer(std::uint32_t levels, const std::wstring& fileName = GetDefaultTraceFileName());
   void CloseTracer();
-  void Trace(std::uint32_t level, const std::wstring& message);
+  void Trace(std::uint32_t level, const std::wstring& message, const std::string& func);
 }
 
-#define CoreTrace(level, message) ::Core::Trace(level, message);
+#define CoreTrace(level, message) ::Core::Trace(level, message, __FUNCTION__);
 #define CoreTraceError() CoreTrace(::TraceLevel::Error, ::Core::FormatException(std::current_exception()));

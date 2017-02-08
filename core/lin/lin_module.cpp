@@ -15,4 +15,9 @@ namespace Core
     // TODO: handle error
     return ToWstring(buffer);
   }
+
+  std::uint32_t GatherCurrentProcessId()
+  {
+    return static_cast<std::uint32_t>(::getpid());
+  }
 }
