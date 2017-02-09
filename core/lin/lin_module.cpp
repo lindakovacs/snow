@@ -1,6 +1,8 @@
 #include <core/module.h>
 #include <core/string_utils.h>
 #include <cstdint>
+
+#include <sys/types.h>
 #include <unistd.h>
 
 namespace Core
