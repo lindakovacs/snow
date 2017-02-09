@@ -39,7 +39,7 @@ namespace Core
     {
       return;
     }
-    Writer.Write("[" + GetTimestamp() + "][" + Format("% 6u", GatherCurrentProcessId()) + "][" + std::to_string(level) + "][" + func + "] " + ToUtf8(message) + "\n");
+    Writer.Write("[" + GetTimestamp() + "][" + Format("% 6u", GatherCurrentThreadId()) + "][" + std::to_string(level) + "][" + func + "] " + ToUtf8(message) + "\n");
   }
 
   void CreateTracer(std::uint32_t levels, const std::wstring& fileName)

@@ -1,9 +1,9 @@
 #pragma once
 
+#include <cstdint>
 #include <deque>
 #include <memory>
 #include <mutex>
-#include <string>
 
 namespace Core
 {
@@ -13,12 +13,12 @@ namespace Core
   public:
     typedef std::shared_ptr<Queue> Sptr;
 
-    explicit Queue(const std::string& selfId)
-    : SelfId(selfId)
+    explicit Queue(std::uint64_t selfId)
+      : SelfId(selfId)
     {
     }
 
-    std::string GetId() const
+    std::uint64_t GetId() const
     {
       return SelfId;
     }
@@ -48,7 +48,7 @@ namespace Core
     }
 
   private:
-    const std::string SelfId;
+    const std::uint64_t SelfId;
     std::deque<T> Entries;
     mutable std::mutex Guard;
   };

@@ -1,14 +1,13 @@
 #include "win_thread_pool.h"
 
+#include <stdexcept>
+#include <string>
+
 namespace Core
 {
   VOID CALLBACK ThreadRoutine(PTP_CALLBACK_INSTANCE instance, PVOID context, PTP_WORK work)
   {
     Job::Routine* routine = static_cast<Job::Routine*>(context);
-    if (!routine)
-    {
-      throw 1;
-    }
     (*routine)();
   }
 
@@ -33,7 +32,7 @@ namespace Core
     Work = ::CreateThreadpoolWork(ThreadRoutine, &Context, environment);
     if (!Work)
     {
-      throw 1;
+      throw std::runtime_error("can't create a new work object, error: " + std::to_string(::GetLastError()));
     }
   }
 
@@ -57,11 +56,11 @@ namespace Core
     Pool = ::CreateThreadpool(NULL);
     if (!Pool)
     {
-      throw ::GetLastError(); // TODO: make Core::Error
+      throw std::runtime_error("can't create a tread pool, error: " + std::to_string(::GetLastError()));
     }
     if (!::SetThreadpoolThreadMinimum(Pool, minThreads))
     {
-      throw ::GetLastError(); // TODO: make Core::Error
+      throw std::runtime_error("can't set a minimum thread number for threadpool, error: " + std::to_string(::GetLastError()));
     }
     ::SetThreadpoolThreadMaximum(Pool, maxThreads);
     ::SetThreadpoolCallbackPool(Environment.Get(), Pool);
@@ -72,7 +71,7 @@ namespace Core
     ::CloseThreadpool(Pool);
   }
 
-  void WinThreadPool::Shedule(const std::string& id, const Job::Routine& context)
+  void WinThreadPool::Shedule(std::uint64_t id, const Job::Routine& context)
   {
     Contract[id] = RoutineHolder::Ptr(new RoutineHolder(context, Environment.Get()));
   }

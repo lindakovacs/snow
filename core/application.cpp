@@ -1,5 +1,6 @@
 #include "application.h"
 #include "module.h"
+#include "string_utils.h"
 #include "tracer.h"
 
 namespace Core
@@ -19,6 +20,7 @@ namespace Core
     {
       Core::CreateTracer(TraceLevel::All);
       CoreTrace(TraceLevel::Information, L"starting up");
+      CoreTrace(TraceLevel::Information, Format(L"current process id %llu", GatherCurrentProcessId()));
       Execute();
       CoreTrace(TraceLevel::Information, L"shutting down");
       code = EXIT_SUCCESS;

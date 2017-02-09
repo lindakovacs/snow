@@ -3,15 +3,15 @@
 
 #include <functional>
 #include <map>
-#include <sstream>
 #include <thread>
 
 namespace Core
 {
-  class JobProcessor: public QueueItemProcessor<Job::Sptr>
+  class JobProcessor : public QueueItemProcessor<Job::Sptr>
   {
   public:
-    explicit JobProcessor(const std::string& selfId)
+    explicit JobProcessor(std::uint64_t selfId)
+      : SelfId(selfId)
     {
     }
 
@@ -19,7 +19,7 @@ namespace Core
     {
     }
 
-    virtual std::string GetId() const
+    virtual std::uint64_t GetId() const
     {
       return SelfId;
     }
@@ -37,20 +37,20 @@ namespace Core
     }
 
   private:
-    const std::string SelfId;
+    const std::uint64_t SelfId;
   };
 
-  const std::string StandardThreadPoolQueueId = "standard-thread-pool-queue-id";
-  const std::string StandardThreadPoolId = "standard-thread-pool-id";
+  const std::uint64_t StandardThreadPoolQueueId = 10;
+  const std::uint64_t StandardThreadPoolId = 20;
 
-  class StandardThreadPool: public ThreadPool
+  class StandardThreadPool : public ThreadPool
   {
   public:
     StandardThreadPool(std::uint32_t minThreads, std::uint32_t maxThreads)
-    : MinThreads(minThreads)
-    , MaxThreads(maxThreads)
-    , Dispatcher(new SignalDispatcher())
-    , JobQueue(new Queue<Job::Sptr>(StandardThreadPoolQueueId))
+      : MinThreads(minThreads)
+      , MaxThreads(maxThreads)
+      , Dispatcher(new SignalDispatcher())
+      , JobQueue(new Queue<Job::Sptr>(StandardThreadPoolQueueId))
     {
     }
 
@@ -67,7 +67,7 @@ namespace Core
       Dispatcher->Emit(StandardThreadPoolId, Signal::Update);
     }
 
-    virtual void Shedule(const std::string& id, const Job::Routine& context)
+    virtual void Shedule(std::uint64_t id, const Job::Routine& context)
     {
       Job::Sptr job(new Job);
       job->Id = id;
@@ -81,15 +81,14 @@ namespace Core
     {
       for (std::uint32_t index = 0; index < MaxThreads; ++index)
       {
-        const std::string suffix = std::to_string(index);
-        const std::string itemProcessorId = "item-processor-id-" + suffix;
-        const std::string queueProcessorId = "queue-processor-id-" + suffix;
+        const std::uint64_t itemProcessorId = index;
+        const std::uint64_t queueProcessorId = index;
 
-        QueueItemProcessor<Job::Sptr>::Sptr itemProcessor(new JobProcessor(itemProcessorId));
+        QueueItemProcessor<Job::Sptr>::Sptr itemProcessor(new JobProcessor(index));
 
-        Thread::Sptr thr(new Thread());
-        thr->Processor.reset(new QueueProcessor<Job::Sptr>(queueProcessorId, StandardThreadPoolId, JobQueue, itemProcessor, Dispatcher));
-        thr->Engine.reset(new std::thread(std::bind(&QueueProcessor<Job::Sptr>::Execute, thr->Processor)));
+        Thread::Sptr thr = std::make_shared<Thread>();
+        thr->Processor = std::make_shared<QueueProcessor<Job::Sptr>>(queueProcessorId, StandardThreadPoolId, JobQueue, itemProcessor, Dispatcher);
+        thr->Engine = std::make_shared<std::thread>(std::bind(&QueueProcessor<Job::Sptr>::Execute, thr->Processor));
         ActiveJobs[queueProcessorId] = thr; // TODO: check call second Submit();
 
         std::this_thread::sleep_for(std::chrono::milliseconds(20)); // NOTE: switch to other thread, requered for mac
@@ -125,7 +124,7 @@ namespace Core
     struct Thread
     {
       typedef std::shared_ptr<Thread> Sptr;
-      typedef std::map<std::string, Sptr> Map;
+      typedef std::map<std::uint64_t, Sptr> Map;
 
       Thread() : Processor(), Engine() {}
       QueueProcessor<Job::Sptr>::Sptr Processor;

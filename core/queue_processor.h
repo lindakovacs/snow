@@ -14,14 +14,14 @@ namespace Core
   public:
     typedef std::shared_ptr<QueueProcessor> Sptr;
 
-    QueueProcessor(const std::string& selfId, const std::string& emitterId, typename Queue<T>::Sptr itemsQueue, typename QueueItemProcessor<T>::Sptr queueItemProcessor, SignalDispatcher::Sptr dispatcher)
-    : SelfId(selfId)
-    , EmitterId(emitterId)
-    , ItemsQueue(itemsQueue)
-    , ItemProcessor(queueItemProcessor)
-    , Dispatcher(dispatcher)
-    , CancelFlag(false)
-    , UpdateFlag(false)
+    QueueProcessor(std::uint64_t selfId, std::uint64_t emitterId, typename Queue<T>::Sptr itemsQueue, typename QueueItemProcessor<T>::Sptr queueItemProcessor, SignalDispatcher::Sptr dispatcher)
+      : SelfId(selfId)
+      , EmitterId(emitterId)
+      , ItemsQueue(itemsQueue)
+      , ItemProcessor(queueItemProcessor)
+      , Dispatcher(dispatcher)
+      , CancelFlag(false)
+      , UpdateFlag(false)
     {
     }
 
@@ -29,7 +29,7 @@ namespace Core
     {
     }
 
-    std::string GetId() const
+    std::uint64_t GetId() const
     {
       return SelfId;
     }
@@ -45,24 +45,23 @@ namespace Core
         {
           NextProcessing.wait(lock);
         }
+        UpdateFlag = false;
         if (CancelFlag)
         {
           break;
         }
-        UpdateFlag = false;
         ProcessQueue();
       }
       Dispatcher->Unsubscribe(SelfId);
     }
 
   private:
-    void OnSignal(const std::string& emitterId, std::uint32_t signals)
+    void OnSignal(std::uint64_t emitterId, std::uint32_t signals)
     {
       if (EmitterId != emitterId)
       {
         return;
       }
-
       if (signals & Signal::Cancel)
       {
         CancelFlag = true;
@@ -84,8 +83,8 @@ namespace Core
     }
 
   private:
-    const std::string SelfId;
-    const std::string EmitterId;
+    const std::uint64_t SelfId;
+    const std::uint64_t EmitterId;
 
     typename Queue<T>::Sptr ItemsQueue;
     typename QueueItemProcessor<T>::Sptr ItemProcessor;

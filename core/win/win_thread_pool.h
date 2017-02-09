@@ -21,7 +21,7 @@ namespace Core
   {
   public:
     typedef std::shared_ptr<RoutineHolder> Ptr;
-    typedef std::map<std::string, Ptr> Map;
+    typedef std::map<std::uint64_t, Ptr> Map;
 
     RoutineHolder(const Job::Routine& context, PTP_CALLBACK_ENVIRON environment);
     ~RoutineHolder();
@@ -32,7 +32,6 @@ namespace Core
     Job::Routine Context;
     PTP_WORK Work;
   };
-
   class WinThreadPool: public ThreadPool
   {
   public:
@@ -40,7 +39,7 @@ namespace Core
     virtual ~WinThreadPool();
 
     virtual void Shedule(Job::Sptr job) {} // TODO: implement
-    virtual void Shedule(const std::string& id, const Job::Routine& context);
+    virtual void Shedule(std::uint64_t id, const Job::Routine& context);
 
     virtual void Submit();
     virtual void Cancel() {} // TODO: implement

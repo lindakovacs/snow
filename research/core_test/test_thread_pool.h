@@ -1,8 +1,6 @@
 #pragma once
 
-#include <core/thread_pool.h>
-
-namespace Core
+namespace Research
 {
   void TestThreadPool();
 }

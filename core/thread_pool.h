@@ -3,7 +3,6 @@
 #include <cstdint>
 #include <functional>
 #include <memory>
-#include <string>
 
 namespace Core
 {
@@ -12,7 +11,7 @@ namespace Core
     typedef std::shared_ptr<Job> Sptr;
     typedef std::function<void()> Routine;
 
-    std::string Id;
+    std::uint64_t Id;
     Routine Context;
   };
 
@@ -28,13 +27,13 @@ namespace Core
     virtual ~ThreadPool() {}
 
     virtual void Shedule(Job::Sptr job) = 0;
-    virtual void Shedule(const std::string& id, const Job::Routine& context) = 0;
+    virtual void Shedule(std::uint64_t id, const Job::Routine& context) = 0;
 
     virtual void Submit() = 0;
     virtual void Cancel() = 0;
     virtual void Wait() = 0;
   };
 
-  ThreadPool::Uptr CreateStandardThreadPool(std::uint32_t minThreads = ThreadPool::MinThreads, std::uint32_t maxThreads = ThreadPool::MaxThreads); // TODO: support min threads
+  ThreadPool::Uptr CreateStandardThreadPool(std::uint32_t minThreads = ThreadPool::MinThreads, std::uint32_t maxThreads = ThreadPool::MaxThreads);
   ThreadPool::Uptr CreateNativeThreadPool(std::uint32_t minThreads = ThreadPool::MinThreads, std::uint32_t maxThreads = ThreadPool::MaxThreads);
 }

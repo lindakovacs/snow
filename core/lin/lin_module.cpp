@@ -20,4 +20,9 @@ namespace Core
   {
     return static_cast<std::uint32_t>(::getpid());
   }
+
+  std::uint32_t GatherCurrentThreadId()
+  {
+    return static_cast<std::uint32_t>(::gettid());
+  }
 }

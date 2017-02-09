@@ -1,10 +1,11 @@
 #include "signal_dispatcher.h"
+#include <mutex>
 
 namespace Core
 {
   SignalDispatcher::Subscriber::Subscriber(std::uint32_t expectedSignals, const Routine& callback)
-  : ExpectedSignals(expectedSignals)
-  , Callback(callback)
+    : ExpectedSignals(expectedSignals)
+    , Callback(callback)
   {
   }
 
@@ -16,12 +17,12 @@ namespace Core
   {
   }
 
-  void SignalDispatcher::Emit(const std::string& emitterId, std::uint32_t actualSignal)
+  void SignalDispatcher::Emit(std::uint64_t emitterId, std::uint32_t actualSignal)
   {
-    std::lock_guard<std::mutex> lock(m_guard);
+    std::shared_lock<std::shared_mutex> lock(Guard);
 
-    Subscribers::const_iterator iter = m_subscribers.find(emitterId);
-    if (iter == m_subscribers.end())
+    Subscribers::const_iterator iter = Catalog.find(emitterId);
+    if (iter == Catalog.end())
     {
       return;
     }
@@ -36,16 +37,16 @@ namespace Core
     }
   }
 
-  void SignalDispatcher::Subscribe(const std::string& subscriberId, const std::string& emitterId, std::uint32_t expectedSignals, const Routine& callback)
+  void SignalDispatcher::Subscribe(std::uint64_t subscriberId, std::uint64_t emitterId, std::uint32_t expectedSignals, const Routine& callback)
   {
-    std::lock_guard<std::mutex> lock(m_guard);
+    std::unique_lock<std::shared_mutex> lock(Guard);
 
-    Subscribers::iterator iter = m_subscribers.find(emitterId);
-    if (iter == m_subscribers.end())
+    Subscribers::iterator iter = Catalog.find(emitterId);
+    if (iter == Catalog.end())
     {
       Subscriber::Map subscribers;
       subscribers[subscriberId] = std::make_shared<Subscriber>(expectedSignals, callback);
-      m_subscribers[emitterId] = subscribers;
+      Catalog[emitterId] = subscribers;
     }
     else
     {
@@ -53,17 +54,17 @@ namespace Core
     }
   }
 
-  void SignalDispatcher::Unsubscribe(const std::string& subscriberId)
+  void SignalDispatcher::Unsubscribe(std::uint64_t subscriberId)
   {
-    std::lock_guard<std::mutex> lock(m_guard);
+    std::unique_lock<std::shared_mutex> lock(Guard);
 
-    for (Subscribers::iterator iter = m_subscribers.begin(); iter != m_subscribers.end();)
+    for (Subscribers::iterator iter = Catalog.begin(); iter != Catalog.end();)
     {
       Subscriber::Map& items = iter->second;
       items.erase(subscriberId);
       if (items.empty())
       {
-        m_subscribers.erase(iter++);
+        Catalog.erase(iter++);
       }
       else
       {
