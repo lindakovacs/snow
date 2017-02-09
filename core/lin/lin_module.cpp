@@ -2,7 +2,7 @@
 #include <core/string_utils.h>
 #include <cstdint>
 
-#include <sys/types.h>
+#include <sys/syscall.h>
 #include <unistd.h>
 
 namespace Core
@@ -25,6 +25,6 @@ namespace Core
 
   std::uint32_t GatherCurrentThreadId()
   {
-    return static_cast<std::uint32_t>(::gettid());
+    return static_cast<std::uint32_t>(::syscall(__NR_gettid));
   }
 }
