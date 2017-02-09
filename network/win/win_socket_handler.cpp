@@ -19,12 +19,12 @@ namespace Network
 
   void WinSocketHandler::Emit(std::uint64_t emitterId, std::uint32_t actualSignal)
   {
-    PostQueuedCompletionStatus(g_hIOCP, 0, 0, NULL);
+    //PostQueuedCompletionStatus(g_hIOCP, 0, 0, NULL);
   }
 
-  void WinSocketHandler::Subscribe(std::uint64_t subscriberId, std::uint64_t emitterId, std::uint32_t expectedSignals, const Routine& callback)
+  void WinSocketHandler::Subscribe(std::uint64_t subscriberId, std::uint64_t emitterId, std::uint32_t expectedSignals)
   {
-    if (::CreateIoCompletionPort(static_cast<HANDLE>(subscriberId), PortHandle, static_cast<DWORD_PTR>(subscriberId), 0) == nullptr)
+    if (::CreateIoCompletionPort(reinterpret_cast<HANDLE>(subscriberId), PortHandle, static_cast<DWORD_PTR>(subscriberId), 0) == nullptr)
     {
       throw std::runtime_error(Core::Format("can't subscribe, subscriber: %#010x, emitter: %#010x, error: %d\n", subscriberId, emitterId, ::GetLastError()));
     }
@@ -32,10 +32,5 @@ namespace Network
 
   void WinSocketHandler::Unsubscribe(std::uint64_t subscriberId)
   {
-  }
-
-  SignalDispatcher::Sptr CreateSignalDispatcher()
-  {
-    return SignalDispatcher::Sptr(new WinSocketHandler());
   }
 }
