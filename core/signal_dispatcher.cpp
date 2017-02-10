@@ -19,7 +19,7 @@ namespace Core
 
   void SignalDispatcher::Emit(std::uint64_t emitterId, std::uint32_t actualSignal)
   {
-    std::shared_lock<std::shared_mutex> lock(Guard);
+    std::lock_guard<decltype(Guard)> lock(Guard);
 
     Subscribers::const_iterator iter = Catalog.find(emitterId);
     if (iter == Catalog.end())
@@ -39,7 +39,7 @@ namespace Core
 
   void SignalDispatcher::Subscribe(std::uint64_t subscriberId, std::uint64_t emitterId, std::uint32_t expectedSignals, const Routine& callback)
   {
-    std::unique_lock<std::shared_mutex> lock(Guard);
+    std::lock_guard<decltype(Guard)> lock(Guard);
 
     Subscribers::iterator iter = Catalog.find(emitterId);
     if (iter == Catalog.end())
@@ -56,7 +56,7 @@ namespace Core
 
   void SignalDispatcher::Unsubscribe(std::uint64_t subscriberId)
   {
-    std::unique_lock<std::shared_mutex> lock(Guard);
+    std::lock_guard<decltype(Guard)> lock(Guard);
 
     for (Subscribers::iterator iter = Catalog.begin(); iter != Catalog.end();)
     {

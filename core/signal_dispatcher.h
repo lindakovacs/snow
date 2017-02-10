@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <functional>
 #include <memory>
-#include <shared_mutex>
+#include <mutex> // TODO: use shared
 #include <unordered_map>
 
 namespace Core
@@ -47,6 +47,6 @@ namespace Core
     typedef std::unordered_map<std::uint64_t, Subscriber::Map> Subscribers;
     Subscribers Catalog;
 
-    std::shared_mutex Guard;
+    std::mutex Guard;
   };
 }
